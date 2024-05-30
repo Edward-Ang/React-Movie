@@ -1,22 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { fetchMovies } from '../api';
 import MovieCard from './MovieCard';
+import './Home.css';
 
 const Home = () => {
-  const [trendingMovies, setTrendingMovies] = useState([]);
   const [popularMovies, setPopularMovies] = useState([]);
-  const [topRatedMovies, setTopRatedMovies] = useState([]);
+  const [upcomingMovies, setUpcomingMovies] = useState([]);
 
   useEffect(() => {
     const fetchAllMovies = async () => {
       try{
-        setTrendingMovies(await fetchMovies('trending'));
         setPopularMovies(await fetchMovies('popular'));
-        setTopRatedMovies(await fetchMovies('top_rated'));
+        setUpcomingMovies(await fetchMovies('upcoming'));
       }catch{
-        setTrendingMovies([1,2,3]);
         setPopularMovies([1,2,3]);
-        setTopRatedMovies([1,2,3]);
+        setUpcomingMovies(['failed']);
       }
     };
     fetchAllMovies();
@@ -24,17 +22,13 @@ const Home = () => {
 
   return (
     <div>
-      <h2>Trending Movies</h2>
-      <div className="movie-list">
-        {trendingMovies.map(movie => <MovieCard key={movie.id} movie={movie} />)}
-      </div>
       <h2>Popular Movies</h2>
       <div className="movie-list">
-        {popularMovies.map(movie => <MovieCard key={movie.id} movie={movie} />)}
+        {popularMovies.slice(0, 5).map(movie => <MovieCard key={movie.id} movie={movie} />)}
       </div>
-      <h2>Top Rated Movies</h2>
+      <h2>Upcoming Movies</h2>
       <div className="movie-list">
-        {topRatedMovies.map(movie => <MovieCard key={movie.id} movie={movie} />)}
+        {upcomingMovies.slice(0, 5).map(movie => <MovieCard key={movie.id} movie={movie} />)}
       </div>
     </div>
   );
