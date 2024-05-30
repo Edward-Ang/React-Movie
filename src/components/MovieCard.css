@@ -1,15 +1,20 @@
 .movie-card{
-    width: fit-content;
+    width: 200px;
+    height: 350px;
+}
+
+.movie-link{
     display: flex;
-    justify-content: center;
-    align-items: center;
+    flex-direction: column;
 }
 
 .movie-card img{
     width: 200px;
     height: 300px;
+    border-radius: 12px;
 }
 
 .movie-title{
-    font-size: 12px;
+    font-size: 14px;
+    text-decoration: solid;
 }
