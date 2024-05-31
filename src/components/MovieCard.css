@@ -1,21 +1,50 @@
 .movie-card{
-    width: 200px;
-    height: 350px;
+    width: 250px;
+    height: fit-content;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.2); /* Semi-transparent white background */
+    backdrop-filter: blur(5px); /* Apply a blur effect */
+    -webkit-backdrop-filter: blur(5px); /* For Safari compatibility */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    padding: 8px 8px 10px 8px;
 }
 
 .movie-link{
     display: flex;
     flex-direction: column;
+    justify-content: baseline;
     text-decoration: none;
-    color: black;
+    color: white;
 }
 
 .movie-card img{
-    width: 200px;
+    width: 250px;
     height: 300px;
+    object-fit: fill;
     border-radius: 12px;
 }
 
 .movie-title{
     font-size: 14px;
+}
+
+.movie-subtitle{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+}
+
+.rating{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 40px;
+}
+
+.star-icon{
+    font-size: 18px;
+    color: #fba80b;
+    margin-top: 1px;
 }

@@ -1,5 +1,5 @@
 Header{
-    background-color: rgb(190, 252, 254);
+    background-color: #1b1f3a;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -20,5 +20,5 @@ Header{
 
 .name{
     font-weight: bold;
-    color: black;
+    color: white;
 }

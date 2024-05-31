@@ -8,6 +8,10 @@
 .movie-list{
     display: grid;
     grid-template-columns: repeat(5, 1fr);
-    gap: 86px;
+    gap: 16px;
     width: fit-content;
+}
+
+h2{
+    color: white;
 }

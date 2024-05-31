@@ -21,7 +21,7 @@ const Home = () => {
   }, []);
 
   return (
-    <div>
+    <div className="home-div">
       <h2>Popular Movies</h2>
       <div className="movie-container">
         <div className="movie-list">

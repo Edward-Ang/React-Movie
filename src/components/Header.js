@@ -16,7 +16,7 @@ const Header = () => {
     <header>
       <Link className='header-logo' to='/'>
         <img className='logo' src='./favicon/favicon.ico' alt='logo' />
-        <h1 className='name'>PopWatch</h1>
+        <h2 className='name'>PopWatch</h2>
       </Link>
       <form onSubmit={handleSearch}>
         <input
