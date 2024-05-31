@@ -6,6 +6,8 @@
 .movie-link{
     display: flex;
     flex-direction: column;
+    text-decoration: none;
+    color: black;
 }
 
 .movie-card img{
@@ -16,5 +18,4 @@
 
 .movie-title{
     font-size: 14px;
-    text-decoration: solid;
 }

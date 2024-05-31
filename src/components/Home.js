@@ -9,11 +9,11 @@ const Home = () => {
 
   useEffect(() => {
     const fetchAllMovies = async () => {
-      try{
+      try {
         setPopularMovies(await fetchMovies('popular'));
         setUpcomingMovies(await fetchMovies('upcoming'));
-      }catch{
-        setPopularMovies([1,2,3]);
+      } catch {
+        setPopularMovies([1, 2, 3]);
         setUpcomingMovies(['failed']);
       }
     };
@@ -23,12 +23,16 @@ const Home = () => {
   return (
     <div>
       <h2>Popular Movies</h2>
-      <div className="movie-list">
-        {popularMovies.slice(0, 5).map(movie => <MovieCard key={movie.id} movie={movie} />)}
+      <div className="movie-container">
+        <div className="movie-list">
+          {popularMovies.slice(0, 5).map(movie => <MovieCard key={movie.id} movie={movie} />)}
+        </div>
       </div>
       <h2>Upcoming Movies</h2>
-      <div className="movie-list">
-        {upcomingMovies.slice(0, 5).map(movie => <MovieCard key={movie.id} movie={movie} />)}
+      <div className="movie-container">
+        <div className="movie-list">
+          {upcomingMovies.slice(0, 5).map(movie => <MovieCard key={movie.id} movie={movie} />)}
+        </div>
       </div>
     </div>
   );

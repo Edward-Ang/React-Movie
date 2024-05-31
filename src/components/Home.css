@@ -1,5 +1,13 @@
-.movie-list{
+.movie-container{
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
     align-items: center;
+    width: 100%;
+}
+
+.movie-list{
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 86px;
+    width: fit-content;
 }

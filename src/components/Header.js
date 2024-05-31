@@ -1,6 +1,7 @@
 // src/components/Header.js
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
+import './Header.css';
 
 const Header = () => {
   const [query, setQuery] = useState('');
@@ -13,7 +14,10 @@ const Header = () => {
 
   return (
     <header>
-      <h1>Movie Database</h1>
+      <Link className='header-logo' to='/'>
+        <img className='logo' src='./favicon/favicon.ico' alt='logo' />
+        <h1 className='name'>PopWatch</h1>
+      </Link>
       <form onSubmit={handleSearch}>
         <input
           type="text"

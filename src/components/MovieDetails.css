@@ -1,0 +1,16 @@
+.detail-wrapper{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: auto;
+    padding: 3% 13% 3% 13%;
+}
+
+.detail-poster{
+    border-radius: 12px;
+    height: 500px;
+}
+
+.detail-container{
+    width: 60%;
+}

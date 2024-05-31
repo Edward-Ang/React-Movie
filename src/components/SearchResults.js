@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { searchMovies } from '../api';
 import MovieCard from './MovieCard';
+import './SearchResults.css';
 
 const useQuery = () => {
   return new URLSearchParams(useLocation().search);
@@ -13,20 +14,22 @@ const SearchResults = () => {
 
   useEffect(() => {
     const fetchSearchResults = async () => {
-      try{
+      try {
         setResults(await searchMovies(query));
-      }catch{
-        setResults([1,2,3]);
+      } catch {
+        setResults([1, 2, 3]);
       }
     };
     fetchSearchResults();
   }, [query]);
 
   return (
-    <div>
+    <div className='search-result'>
       <h2>Search Results</h2>
-      <div className="movie-list">
-        {results.map(movie => <MovieCard key={movie.id} movie={movie} />)}
+      <div className="movie-container">
+        <div className="movie-list">
+          {results.map(movie => <MovieCard key={movie.id} movie={movie} />)}
+        </div>
       </div>
     </div>
   );
