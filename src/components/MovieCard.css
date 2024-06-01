@@ -2,7 +2,7 @@
     width: 225px;
     height: fit-content;
     border-radius: 20px;
-    background: rgba(255, 255, 255, 0.2);
+    background: var(--grey-bg);
     backdrop-filter: blur(5px); /* Apply a blur effect */
     -webkit-backdrop-filter: blur(5px); /* For Safari compatibility */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -40,6 +40,7 @@
     font-size: 14px;
     margin-bottom: 5px;
     padding: 0 5px 0 5px;
+    color: var(--light-font);
 }
 
 .rating{
@@ -51,6 +52,6 @@
 
 .star-icon{
     font-size: 18px;
-    color: #fba80b;
+    color: var(--star-icon);
     margin-top: 2px;
 }
