@@ -1,8 +1,8 @@
 .movie-card{
-    width: 250px;
+    width: 225px;
     height: fit-content;
     border-radius: 20px;
-    background: rgba(255, 255, 255, 0.2); /* Semi-transparent white background */
+    background: rgba(255, 255, 255, 0.2);
     backdrop-filter: blur(5px); /* Apply a blur effect */
     -webkit-backdrop-filter: blur(5px); /* For Safari compatibility */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -11,22 +11,26 @@
 }
 
 .movie-link{
-    display: flex;
-    flex-direction: column;
-    justify-content: baseline;
     text-decoration: none;
     color: white;
 }
 
 .movie-card img{
-    width: 250px;
+    width: 225px;
     height: 300px;
     object-fit: fill;
     border-radius: 12px;
+    filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.5));
 }
 
 .movie-title{
     font-size: 14px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    padding: 0 5px 0 5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .movie-subtitle{
@@ -34,6 +38,8 @@
     justify-content: space-between;
     align-items: center;
     font-size: 14px;
+    margin-bottom: 5px;
+    padding: 0 5px 0 5px;
 }
 
 .rating{
@@ -46,5 +52,5 @@
 .star-icon{
     font-size: 18px;
     color: #fba80b;
-    margin-top: 1px;
+    margin-top: 2px;
 }

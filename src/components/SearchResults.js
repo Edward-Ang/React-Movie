@@ -25,10 +25,14 @@ const SearchResults = () => {
 
   return (
     <div className='search-result'>
-      <h2>Search Results</h2>
-      <div className="movie-container">
-        <div className="movie-list">
-          {results.map(movie => <MovieCard key={movie.id} movie={movie} />)}
+      <div className='movie-section' >
+        <div className='section-header'>
+          <h2>Search Results</h2>
+        </div>
+        <div className="movie-container">
+          <div className="movie-list">
+            {results.map(movie => <MovieCard key={movie.id} movie={movie} />)}
+          </div>
         </div>
       </div>
     </div>
