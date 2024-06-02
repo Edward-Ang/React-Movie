@@ -14,6 +14,7 @@ const Header = () => {
   const handleSearch = (e) => {
     e.preventDefault();
     navigate(`/search?q=${query}`);
+    setQuery('');
   };
 
   return (

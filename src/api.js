@@ -8,12 +8,22 @@ export const fetchMovies = async (type) => {
   return response.data.results;
 };
 
-export const searchMovies = async (query) => {
-  const response = await axios.get(`${BASE_URL}/search/movie?api_key=${API_KEY}&query=${query}`);
-  return response.data.results;
-};
-
 export const fetchMovieDetails = async (id) => {
   const response = await axios.get(`${BASE_URL}/movie/${id}?api_key=${API_KEY}`);
   return response.data;
+};
+
+export const fetchTv = async (type) => {
+  const response = await axios.get(`${BASE_URL}/tv/${type}?api_key=${API_KEY}`);
+  return response.data.results;
+};
+
+export const fetchTvDetails = async (id) => {
+  const response = await axios.get(`${BASE_URL}/tv/${id}?api_key=${API_KEY}`);
+  return response.data;
+};
+
+export const searchMovies = async (query) => {
+  const response = await axios.get(`${BASE_URL}/search/movie?api_key=${API_KEY}&query=${query}`);
+  return response.data.results;
 };

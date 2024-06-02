@@ -3,6 +3,7 @@ Header {
     justify-content: space-between;
     align-items: center;
     padding: 0% 6.5% 0% 6.5%;
+    height: 63px;
 }
 
 .header-logo {
@@ -22,7 +23,7 @@ Header {
 .name {
     font-size: 24px;
     font-weight: bold;
-    color: white;
+    color: var(--light-font);
 }
 
 .search-form {
@@ -67,7 +68,7 @@ Header {
     padding: 0 20px;
     background-color: transparent;
     /* Adjust to desired color */
-    color: white;
+    color: var(--light-font);
     border: none;
     border-top-right-radius: 20px;
     border-bottom-right-radius: 20px;
@@ -105,7 +106,7 @@ Header {
 }
 
 .utility-icon {
-    color: white;
+    color: var(--light-font);
     font-size: 24px;
     margin-top: 1px;
 }
