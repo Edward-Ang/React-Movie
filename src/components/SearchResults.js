@@ -27,11 +27,12 @@ const SearchResults = () => {
     <div className='search-result'>
       <div className='movie-section' >
         <div className='section-header'>
-          <h2>Search Results</h2>
+          <h2>Search Results : </h2>
+          <span className='search-keyword'>{query}</span>
         </div>
         <div className="movie-container">
           <div className="movie-list">
-            {results.map(movie => <MovieCard key={movie.id} movie={movie} />)}
+            {results.map(movie => <MovieCard key={movie.id} movie={movie} id={movie.title ? 'movie' : 'tv'} />)}
           </div>
         </div>
       </div>

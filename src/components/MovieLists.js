@@ -1,21 +1,30 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from 'react-router-dom';
-import { fetchMovies } from "../api";
+import { fetchMovies, fetchTv } from "../api";
 import MovieCard from "./MovieCard";
 
 const MovieLists = () => {
-    const { id } = useParams();
+    const { type, id } = useParams();
     const [movies, setMovies] = useState([]);
     const [section, setSection] = useState('');
 
     useEffect(() => {
         const fetchAllMovies = async () => {
             try {
-                setMovies(await fetchMovies(id));
-                if(id === 'popular'){
-                    setSection('Popular Movies');
-                }else{
-                    setSection('Upcoming Movies');
+                if (id === 'movie') {
+                    setMovies(await fetchMovies(type));
+                    if (type === 'popular') {
+                        setSection('Popular Movies');
+                    } else {
+                        setSection('Upcoming Movies');
+                    }
+                } else {
+                    setMovies(await fetchTv(type));
+                    if (type === 'popular') {
+                        setSection('Popular Tv Shows');
+                    } else {
+                        setSection('Upcoming Tv Shows');
+                    }
                 }
             } catch {
                 setMovies([]);
@@ -23,7 +32,7 @@ const MovieLists = () => {
         }
 
         fetchAllMovies();
-    }, [id]);
+    }, [id, type]);
 
     return (
         <div className="home-div">
@@ -33,7 +42,7 @@ const MovieLists = () => {
                 </div>
                 <div className="movie-container">
                     <div className="movie-list">
-                        {movies.map(movie => <MovieCard key={movie.id} movie={movie} />)}
+                        {movies.map(movie => <MovieCard key={movie.id} movie={movie} id={id} />)}
                     </div>
                 </div>
             </div>
