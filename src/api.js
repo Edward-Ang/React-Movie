@@ -24,6 +24,16 @@ export const fetchTvDetails = async (id) => {
 };
 
 export const searchMovies = async (query) => {
-  const response = await axios.get(`${BASE_URL}/search/movie?api_key=${API_KEY}&query=${query}`);
+  const response = await axios.get(`${BASE_URL}/search/multi?api_key=${API_KEY}&query=${query}`);
   return response.data.results;
+};
+
+export const searchTv = async (query) => {
+  const response = await axios.get(`${BASE_URL}/search/tv?api_key=${API_KEY}&query=${query}`);
+  return response.data.results;
+};
+
+export const searchMoviesAndTv = async (query) => {
+  const [movies, tvShows] = await Promise.all([searchMovies(query), searchTv(query)]);
+  return { movies, tvShows };
 };

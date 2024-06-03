@@ -12,6 +12,7 @@ Header {
     align-items: center;
     width: fit-content;
     text-decoration: none;
+    margin-right: 31px;
 }
 
 .logo {
