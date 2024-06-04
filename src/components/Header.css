@@ -2,9 +2,15 @@ Header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    background-color: var(--background);
     padding: 0% 6.5% 0% 6.5%;
     height: 63px;
-}
+    position: sticky; 
+    top: 0; 
+    left: 0; 
+    right: 0; 
+    z-index: 1;
+    box-shadow: 0 2px 4px rgba(23, 33, 57, 0.3);  }
 
 .header-logo {
     display: flex;

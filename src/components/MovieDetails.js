@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { fetchMovieDetails, fetchMovies, fetchTvDetails, fetchTv } from '../api';
+import { fetchMovieDetails, similarMovies, fetchTvDetails, fetchMovies, fetchTv } from '../api';
 import SideMovieCard from './SideMovieCard';
 import './MovieDetails.css';
 
@@ -16,20 +16,28 @@ const MovieDetails = () => {
         if (id === 'movie') {
           const [movieDetails, recommendedMovies] = await Promise.all([
             fetchMovieDetails(obj),
-            fetchMovies('popular'),
+            similarMovies('movie', obj),
           ]);
           setMovie(movieDetails);
-          setRecommend(recommendedMovies);
+          if(recommendedMovies.length !== 0){
+            setRecommend(recommendedMovies);
+          }else{
+            setRecommend(await fetchMovies('popular'));
+          }
           if (movieDetails.genres) {
             setGenre(movieDetails.genres.map(genre => genre.name));
           }
         } else {
           const [tvDetails, recommendedTv] = await Promise.all([
             fetchTvDetails(obj),
-            fetchTv('popular'),
+            similarMovies('tv', obj),
           ]);
           setMovie(tvDetails);
-          setRecommend(recommendedTv);
+          if(recommendedTv.length !== 0){
+            setRecommend(recommendedTv);
+          }else{
+            setRecommend(await fetchTv('popular'));
+          }
           if (tvDetails.genres) {
             setGenre(tvDetails.genres.map(genre => genre.name));
           }
@@ -74,7 +82,7 @@ const MovieDetails = () => {
       </div>
       <div className="detail-side">
         <h2>You May Also Like</h2>
-        {recommend.slice(10, 15).map(movie => (
+        {recommend.slice(5, 10).map(movie => (
           <SideMovieCard key={movie.id} movie={movie} id={id} />
         ))}
       </div>
