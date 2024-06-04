@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from 'react-router-dom';
 import { fetchMovies, fetchTv } from "../api";
+import { AiOutlineOrderedList } from "react-icons/ai";
 import MovieCard from "./MovieCard";
+import './MovieLists.css';
 
 const MovieLists = () => {
     const { type, id } = useParams();
@@ -23,7 +25,7 @@ const MovieLists = () => {
                     if (type === 'popular') {
                         setSection('Popular Tv Shows');
                     } else {
-                        setSection('Upcoming Tv Shows');
+                        setSection('Top Rated Tv Shows');
                     }
                 }
             } catch {
@@ -37,8 +39,9 @@ const MovieLists = () => {
     return (
         <div className="home-div">
             <div className='movie-section' >
-                <div className='section-header'>
+                <div className='section-header' id='section-header'>
                     <h2>{section}</h2>
+                    <AiOutlineOrderedList className='sort-icon' />
                 </div>
                 <div className="movie-container">
                     <div className="movie-list">

@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { AiOutlineHeart } from "react-icons/ai";
-import { AiOutlineFilter } from "react-icons/ai";
+import { AiOutlineUser } from "react-icons/ai";
 import { AiOutlineBell } from "react-icons/ai";
 import { AiOutlineSearch } from "react-icons/ai";
 import './Header.css';
@@ -39,7 +39,7 @@ const Header = () => {
       <div className='utility'>
         <button className='utility-btn' ><AiOutlineHeart className='utility-icon' /></button>
         <button className='utility-btn' ><AiOutlineBell className='utility-icon' /></button>
-        <button className='utility-btn' ><AiOutlineFilter className='utility-icon' /></button>
+        <button className='utility-btn' ><AiOutlineUser className='utility-icon' /></button>
       </div>
     </header>
   );

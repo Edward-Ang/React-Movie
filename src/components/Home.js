@@ -9,6 +9,7 @@ const Home = () => {
   const [popularMovies, setPopularMovies] = useState([]);
   const [upcomingMovies, setUpcomingMovies] = useState([]);
   const [tvShows, setTvShows] = useState([]);
+  const [topRatedTvShows, setTopRatedTvShows] = useState([]);
 
   useEffect(() => {
     const fetchAllMovies = async () => {
@@ -16,10 +17,12 @@ const Home = () => {
         setPopularMovies(await fetchMovies('popular'));
         setUpcomingMovies(await fetchMovies('upcoming'));
         setTvShows(await fetchTv('popular'));
+        setTopRatedTvShows(await fetchTv('top_rated'));
       } catch {
         setPopularMovies([1, 2, 3]);
         setUpcomingMovies(['failed']);
         setTvShows([]);
+        setTopRatedTvShows([]);
       }
     };
     fetchAllMovies();
@@ -42,7 +45,7 @@ const Home = () => {
       </div>
       <div className='movie-section' >
         <div className='section-header'>
-          <h2>TV Shows</h2>
+          <h2>Popular TV Shows</h2>
           <Link to={`/movies/${'popular'}/${'tv'}`} className='more-link' >
           <button className='more-btn'>More <AiOutlineRight className='right-icon' /></button>
           </Link>
@@ -50,6 +53,19 @@ const Home = () => {
         <div className="movie-container">
           <div className="movie-list">
             {tvShows.slice(0, 5).map(tv => <MovieCard key={tv.id} movie={tv} id={'tv'} />)}
+          </div>
+        </div>
+      </div>
+      <div className='movie-section' >
+        <div className='section-header'>
+          <h2>Top Rated TV Shows</h2>
+          <Link to={`/movies/${'top_rated'}/${'tv'}`} className='more-link' >
+          <button className='more-btn'>More <AiOutlineRight className='right-icon' /></button>
+          </Link>
+        </div>
+        <div className="movie-container">
+          <div className="movie-list">
+            {topRatedTvShows.slice(0, 5).map(tv => <MovieCard key={tv.id} movie={tv} id={'tv'} />)}
           </div>
         </div>
       </div>
