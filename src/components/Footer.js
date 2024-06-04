@@ -4,7 +4,7 @@ import './Footer.css';
 const Footer = () => {
   return (
     <footer>
-      <p>© 2024 Movie Database. All rights reserved.</p>
+      <p>© 2024 PopWatch. All rights reserved.</p>
     </footer>
   );
 };

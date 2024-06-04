@@ -13,6 +13,11 @@ export const fetchMovieDetails = async (id) => {
   return response.data;
 };
 
+export const fetchReviews = async (id, type) => {
+  const response = await axios.get(`${BASE_URL}/${type}/${id}/reviews?api_key=${API_KEY}`);
+  return response.data.results;
+}
+
 export const fetchTv = async (type) => {
   const response = await axios.get(`${BASE_URL}/tv/${type}?api_key=${API_KEY}`);
   return response.data.results;
