@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { fetchMovieDetails, similarMovies, fetchTvDetails, fetchMovies, fetchTv, fetchReviews } from '../api';
 import SideMovieCard from './SideMovieCard';
+import ReviewCard from './ReviewCard';
 import './MovieDetails.css';
 
 const MovieDetails = () => {
@@ -52,9 +53,9 @@ const MovieDetails = () => {
     };
 
     const fetchMovieReviews = async () => {
-      try{
+      try {
         setReviews(await fetchReviews(obj, id));
-      }catch{
+      } catch {
         setReviews([]);
       }
     }
@@ -97,27 +98,16 @@ const MovieDetails = () => {
           <div class="review-section">
             <h2>Reviews</h2>
             <div class="review-list">
-              <div class="review-card">
-                <div class="review-author">
-                  <img src={`https://image.tmdb.org/t/p/w500//mwR7rFHoDcobAx1i61I3skzMW3U.jpg`} alt="Author Avatar" class="author-avatar" />
-                  <span class="author-name">Author Name: {reviews[0].author}</span>
-                  <span class="author-rating">Rating: {reviews[0].rating}/10</span>
-                </div>
-                <div class="review-content">
-                  <p>{reviews[0].content}</p>
-                </div>
-                <div class="review-meta">
-                  <span class="review-date">Created at: YYYY-MM-DD</span>
-                  <a href="review-url" target="_blank" class="review-link">Read full review</a>
-                </div>
-              </div>
+              {reviews.map((review) => (
+                <ReviewCard key={review.id} {...review} />
+              ))}
             </div>
           </div>
         </div>
       </div>
       <div className="detail-right">
         <h2>You May Also Like</h2>
-        {recommend.slice(5, 10).map(movie => (
+        {recommend.map(movie => (
           <SideMovieCard key={movie.id} movie={movie} id={id} />
         ))}
       </div>
