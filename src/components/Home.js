@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { fetchMovies, fetchTv } from '../api';
 import MovieCard from './MovieCard';
 import { AiOutlineRight } from "react-icons/ai";
+import { useMediaQuery } from 'react-responsive';
 import './Home.css';
 
 const Home = () => {
@@ -10,6 +11,7 @@ const Home = () => {
   const [upcomingMovies, setUpcomingMovies] = useState([]);
   const [tvShows, setTvShows] = useState([]);
   const [topRatedTvShows, setTopRatedTvShows] = useState([]);
+  const break1275 = useMediaQuery({ maxWidth: 1275 });
 
   useEffect(() => {
     const fetchAllMovies = async () => {
@@ -39,7 +41,7 @@ const Home = () => {
         </div>
         <div className="movie-container">
           <div className="movie-list">
-            {popularMovies.slice(0, 5).map(movie => <MovieCard key={movie.id} movie={movie} id={'movie'} />)}
+            {popularMovies.slice(0, break1275 ? 4 : 5).map(movie => <MovieCard key={movie.id} movie={movie} id={'movie'} />)}
           </div>
         </div>
       </div>
@@ -52,7 +54,7 @@ const Home = () => {
         </div>
         <div className="movie-container">
           <div className="movie-list">
-            {tvShows.slice(0, 5).map(tv => <MovieCard key={tv.id} movie={tv} id={'tv'} />)}
+            {tvShows.slice(0, break1275 ? 4 : 5).map(tv => <MovieCard key={tv.id} movie={tv} id={'tv'} />)}
           </div>
         </div>
       </div>
@@ -65,7 +67,7 @@ const Home = () => {
         </div>
         <div className="movie-container">
           <div className="movie-list">
-            {topRatedTvShows.slice(0, 5).map(tv => <MovieCard key={tv.id} movie={tv} id={'tv'} />)}
+            {topRatedTvShows.slice(0, break1275 ? 4 : 5).map(tv => <MovieCard key={tv.id} movie={tv} id={'tv'} />)}
           </div>
         </div>
       </div>
@@ -78,7 +80,7 @@ const Home = () => {
         </div>
         <div className="movie-container">
           <div className="movie-list">
-            {upcomingMovies.slice(0, 5).map(movie => <MovieCard key={movie.id} movie={movie} id={'movie'} />)}
+            {upcomingMovies.slice(0, break1275 ? 4 : 5).map(movie => <MovieCard key={movie.id} movie={movie} id={'movie'} />)}
           </div>
         </div>
       </div>
