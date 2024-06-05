@@ -96,6 +96,7 @@
 
 .no-reviews{
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     background-color: var(--grey-bg);
@@ -107,4 +108,9 @@
 
 .no-reviews img{
     object-fit: cover;
+}
+
+.comment-icon{
+    font-size: 54px;
+    margin-bottom: 2px;
 }

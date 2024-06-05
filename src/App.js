@@ -6,6 +6,7 @@ import SearchResults from './components/SearchResults';
 import MovieLists from './components/MovieLists';
 import Header from './components/Header';
 import Footer from './components/Footer';
+import BackToTop from './components/BackToTop/backToTop';
 import './App.css';
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
         <Route path="/movies/:type/:id" element={<MovieLists />} />
       </Routes>
       <Footer />
+      <BackToTop />
     </Router>
   );
 }

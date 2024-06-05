@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { fetchMovieDetails, similarMovies, fetchTvDetails, fetchMovies, fetchTv, fetchReviews } from '../api';
 import SideMovieCard from './SideMovieCard';
 import ReviewCard from './ReviewCard';
+import { AiOutlineComment } from "react-icons/ai";
 import './MovieDetails.css';
 
 const MovieDetails = () => {
@@ -85,7 +86,7 @@ const MovieDetails = () => {
             <p className="movie-date">Release Date: {movie.release_date ? movie.release_date : movie.first_air_date}</p>
             <div className="movie-rating">
               <span>Rating: </span>
-              <span className="movie-detail-rating">{movie.vote_average.toFixed(1)}</span>
+              <span className="movie-detail-rating">{movie.vote_average ? movie.vote_average.toFixed(1) : 'N/A'}</span>
             </div>
             <div className='genres'>
               {genre.map(genre => (
@@ -103,6 +104,7 @@ const MovieDetails = () => {
                 <ReviewCard key={review.id} {...review} />
               ))) : (
                 <div className='no-reviews'>
+                  <AiOutlineComment className='comment-icon' />
                   No reviews
                 </div>
               )}
