@@ -20,7 +20,7 @@ const Header = () => {
   return (
     <header>
       <Link className='header-logo' to='/'>
-        <img className='logo' src='./favicon/favicon.ico' alt='logo' />
+        <img className='logo' src='./favicon.ico' alt='logo' />
         <h2 className='name'>PopWatch</h2>
       </Link>
       <form onSubmit={handleSearch} className="search-form">
