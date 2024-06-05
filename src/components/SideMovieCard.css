@@ -20,3 +20,16 @@
     width: 65%;
     height: 175px;
 }
+
+#similar-movie-title, #similar-genres{
+    margin-bottom: 25px;
+}
+
+#similar-genres{
+    padding: 0 5px 0 5px;
+}
+
+#similar-genre-item{
+    font-size: 12px;
+    padding: 1% 2% 1% 2%;
+}
