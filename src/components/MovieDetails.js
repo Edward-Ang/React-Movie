@@ -98,9 +98,14 @@ const MovieDetails = () => {
           <div class="review-section">
             <h2>Reviews</h2>
             <div class="review-list">
-              {reviews.map((review) => (
+              {reviews.length > 0 ? (
+              reviews.map((review) => (
                 <ReviewCard key={review.id} {...review} />
-              ))}
+              ))) : (
+                <div className='no-reviews'>
+                  No reviews
+                </div>
+              )}
             </div>
           </div>
         </div>
