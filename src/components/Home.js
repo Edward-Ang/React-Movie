@@ -4,7 +4,7 @@ import { fetchMovies, fetchTv } from '../api';
 import MovieCard from './MovieCard';
 import { AiOutlineRight } from "react-icons/ai";
 import { useMediaQuery } from 'react-responsive';
-import './Home.css';
+import './home.css';
 
 const Home = () => {
   const [popularMovies, setPopularMovies] = useState([]);
