@@ -37,3 +37,8 @@ export const similarMovies = async ( type, id) => {
   const response = await axios.get(`${BASE_URL}/${type}/${id}/similar?api_key=${API_KEY}`);
   return response.data.results;
 }
+
+export const fetchVideos = async (type, id) => {
+  const response = await axios.get(`${BASE_URL}/${type}/${id}/videos?api_key=${API_KEY}`);
+  return response.data.results;
+}

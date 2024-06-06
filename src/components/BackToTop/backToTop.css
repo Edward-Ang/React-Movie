@@ -1,7 +1,7 @@
 .Btn {
     width: 45px;
     height: 45px;
-    background: linear-gradient(135deg, #1de9b6 0%, #1dc4e9 100%);
+    background: var(--blue-bg);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -12,6 +12,10 @@
     right: 30px;
     border: none;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2); 
+}
+
+.Btn:hover{
+    background: var(--blue-bg-hover);
 }
 
 .arrow path {

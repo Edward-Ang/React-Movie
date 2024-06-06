@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { fetchMovieDetails, similarMovies, fetchTvDetails, fetchMovies, fetchTv, fetchReviews } from '../api';
+import { fetchMovieDetails, similarMovies, fetchTvDetails, fetchMovies, fetchTv, fetchReviews, fetchVideos } from '../api';
 import SideMovieCard from './SideMovieCard';
 import ReviewCard from './ReviewCard';
 import { AiOutlineComment } from "react-icons/ai";
+import { AiOutlinePlayCircle } from "react-icons/ai";
 import './MovieDetails.css';
 
 const MovieDetails = () => {
@@ -12,8 +13,20 @@ const MovieDetails = () => {
   const [recommend, setRecommend] = useState([]);
   const [genre, setGenre] = useState([]);
   const [reviews, setReviews] = useState([]);
+  const [video, setVideo] = useState(null);
+  const [watch, setWatch] = useState(false);
 
   useEffect(() => {
+    const fetchVideo = async () => {
+      try {
+        const videos = await fetchVideos(id, obj);
+        const trailer = videos.find(video => (video.type === "Trailer" || video.type === "Opening Credits") && video.site === "YouTube");
+        setVideo(trailer ? trailer.key : null);
+      } catch {
+        setVideo(null);
+      }
+    };
+
     const fetchDetails = async () => {
       try {
         if (id === 'movie') {
@@ -22,28 +35,16 @@ const MovieDetails = () => {
             similarMovies('movie', obj),
           ]);
           setMovie(movieDetails);
-          if (recommendedMovies.length !== 0) {
-            setRecommend(recommendedMovies);
-          } else {
-            setRecommend(await fetchMovies('popular'));
-          }
-          if (movieDetails.genres) {
-            setGenre(movieDetails.genres.map(genre => genre.name));
-          }
+          setRecommend(recommendedMovies.length !== 0 ? recommendedMovies : await fetchMovies('popular'));
+          setGenre(movieDetails.genres ? movieDetails.genres.map(genre => genre.name) : []);
         } else {
           const [tvDetails, recommendedTv] = await Promise.all([
             fetchTvDetails(obj),
             similarMovies('tv', obj),
           ]);
           setMovie(tvDetails);
-          if (recommendedTv.length !== 0) {
-            setRecommend(recommendedTv);
-          } else {
-            setRecommend(await fetchTv('popular'));
-          }
-          if (tvDetails.genres) {
-            setGenre(tvDetails.genres.map(genre => genre.name));
-          }
+          setRecommend(recommendedTv.length !== 0 ? recommendedTv : await fetchTv('popular'));
+          setGenre(tvDetails.genres ? tvDetails.genres.map(genre => genre.name) : []);
         }
         window.scrollTo({ top: 0, behavior: 'smooth' });
       } catch (movieError) {
@@ -59,17 +60,34 @@ const MovieDetails = () => {
       } catch {
         setReviews([]);
       }
-    }
+    };
 
+    fetchVideo();
     fetchDetails();
     fetchMovieReviews();
   }, [obj, id]);
+
+  const handleWatch = () => {
+    setWatch(true);
+  }
 
   if (!movie) return <div>Loading...</div>;
 
   return (
     <div className="detail-wrapper">
       <div className='detail-left'>
+        {watch &&
+          <div className='detail-video'>
+            <iframe
+              width="560"
+              height="315"
+              src={`https://www.youtube.com/embed/${video}`}
+              allowFullScreen={true}
+              title="Movie Trailer"
+              className='video-iframe'
+            ></iframe>
+          </div>
+        }
         <div className='detail-left-top'>
           <img
             className="detail-poster"
@@ -89,20 +107,27 @@ const MovieDetails = () => {
               <span className="movie-detail-rating">{movie.vote_average ? movie.vote_average.toFixed(1) : 'N/A'}</span>
             </div>
             <div className='genres'>
-              {genre.map(genre => (
-                <span key={genre.id} className='genre-item' >{genre}</span>
+              {genre.map((genreName, index) => (
+                <span key={index} className='genre-item'>{genreName}</span>
               ))}
             </div>
+            {video &&
+              <button className='trailer-btn' onClick={handleWatch}>
+                Watch
+                <AiOutlinePlayCircle className='play-icon' />
+              </button>
+            }
           </div>
         </div>
         <div className='detail-review'>
-          <div class="review-section">
+          <div className="review-section">
             <h2>Reviews</h2>
-            <div class="review-list">
+            <div className="review-list">
               {reviews.length > 0 ? (
-              reviews.map((review) => (
-                <ReviewCard key={review.id} {...review} />
-              ))) : (
+                reviews.map((review) => (
+                  <ReviewCard key={review.id} {...review} />
+                ))
+              ) : (
                 <div className='no-reviews'>
                   <AiOutlineComment className='comment-icon' />
                   No reviews
