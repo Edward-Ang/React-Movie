@@ -1,5 +1,6 @@
 // src/App.js
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Login from './pages/login';
 import Home from './components/Home';
 import MovieDetails from './components/MovieDetails/MovieDetails';
 import SearchResults from './components/SearchResults/SearchResults';
@@ -18,6 +19,7 @@ function App() {
         <Route path="/movie/:obj/:id" element={<MovieDetails />} />
         <Route path="/search" element={<SearchResults />} />
         <Route path="/movies/:type/:id" element={<MovieLists />} />
+        <Route path="/login" element={<Login />} />
       </Routes>
       <Footer />
       <BackToTop />

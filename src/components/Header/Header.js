@@ -17,6 +17,10 @@ const Header = () => {
     setQuery('');
   };
 
+  const handleUser = () =>{
+    navigate('/login');
+  }
+
   return (
     <header>
       <Link className='header-logo' to='/'>
@@ -39,7 +43,7 @@ const Header = () => {
       <div className='utility'>
         <button className='utility-btn' ><AiOutlineHeart className='utility-icon' /></button>
         <button className='utility-btn' ><AiOutlineBell className='utility-icon' /></button>
-        <button className='utility-btn' ><AiOutlineUser className='utility-icon' /></button>
+        <button className='utility-btn' onClick={handleUser} ><AiOutlineUser className='utility-icon' /></button>
       </div>
     </header>
   );
