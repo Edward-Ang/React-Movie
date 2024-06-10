@@ -62,13 +62,22 @@ const MovieDetails = () => {
       }
     };
 
+    const resetVideo = async () => {
+      setWatch(false);
+    }
+
     fetchVideo();
     fetchDetails();
     fetchMovieReviews();
+    resetVideo(false);
   }, [obj, id]);
 
   const handleWatch = () => {
     setWatch(true);
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
   }
 
   if (!movie) return <div>Loading...</div>;
