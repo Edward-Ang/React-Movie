@@ -1,11 +1,11 @@
 // src/App.js
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Home from './components/Home';
-import MovieDetails from './components/MovieDetails';
-import SearchResults from './components/SearchResults';
-import MovieLists from './components/MovieLists';
-import Header from './components/Header';
-import Footer from './components/Footer';
+import MovieDetails from './components/MovieDetails/MovieDetails';
+import SearchResults from './components/SearchResults/SearchResults';
+import MovieLists from './components/MovieLists/MovieLists';
+import Header from './components/Header/Header';
+import Footer from './components/Footer/Footer';
 import BackToTop from './components/BackToTop/backToTop';
 import './App.css';
 

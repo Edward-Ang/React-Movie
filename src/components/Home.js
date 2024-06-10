@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { fetchMovies, fetchTv } from '../api';
-import MovieCard from './MovieCard';
+import MovieCard from './MovieCard/MovieCard';
 import { AiOutlineRight } from "react-icons/ai";
 import { useMediaQuery } from 'react-responsive';
 import './Home.css';
