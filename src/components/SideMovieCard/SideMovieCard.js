@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from 'react-router-dom';
 import { AiFillStar } from "react-icons/ai";
-import { genreList } from './GenreLists';
+import { genreList } from '../GenreLists';
 import './SideMovieCard.css';
 
 const SideMovieCard = ({ movie, id }) => {
