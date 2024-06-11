@@ -7,7 +7,8 @@ import { AiOutlineBell } from "react-icons/ai";
 import { AiOutlineSearch } from "react-icons/ai";
 import './Header.css';
 
-const Header = () => {
+const Header = (userDetails) => {
+  const user = userDetails.user;
   const [query, setQuery] = useState('');
   const navigate = useNavigate();
 
@@ -17,8 +18,16 @@ const Header = () => {
     setQuery('');
   };
 
-  const handleUser = () =>{
+  const handleUser = () => {
     navigate('/login');
+  }
+
+  const handleLogout = async () => {
+    window.open(`${process.env.REACT_APP_API_URL}/auth/logout`, "_self");
+  };
+
+  const handleProfile = async () => {
+    
   }
 
   return (
@@ -43,8 +52,13 @@ const Header = () => {
       <div className='utility'>
         <button className='utility-btn' ><AiOutlineHeart className='utility-icon' /></button>
         <button className='utility-btn' ><AiOutlineBell className='utility-icon' /></button>
-        <button className='utility-btn' onClick={handleUser} ><AiOutlineUser className='utility-icon' /></button>
-      </div>
+        {user ? (
+          <img className='profile-pic' src={user.picture} alt={user.name} title={user.name} onClick={handleProfile} />
+        ) : (
+          <button className='utility-btn' onClick={handleUser} ><AiOutlineUser className='utility-icon' /></button>
+        )}
+        <button className='utility-btn' onClick={handleLogout} >Logout</button>
+        </div>
     </header>
   );
 };

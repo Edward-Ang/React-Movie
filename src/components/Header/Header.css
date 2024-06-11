@@ -117,3 +117,18 @@ Header {
     font-size: 24px;
     margin-top: 1px;
 }
+
+.profile-pic{
+    width: 33px;
+    height: 33px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    border: none;
+    margin-left: 24px;
+    margin-top: 1px; 
+    background-color: transparent;
+    cursor: pointer;
+    object-fit: cover;
+}
