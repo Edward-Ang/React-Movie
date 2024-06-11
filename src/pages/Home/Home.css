@@ -45,9 +45,9 @@
 }
 
 .right-icon{
-    margin-top: 2px;
-    margin-left: 2px;
-    font-size: 14px;
+    margin-left: 1px;
+    width: 16px;
+    height: 16px;
 }
 
 .movie-container{

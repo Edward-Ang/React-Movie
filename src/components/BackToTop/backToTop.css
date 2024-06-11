@@ -18,6 +18,11 @@
     background: var(--blue-bg-hover);
 }
 
+.arrow{
+    width: 16px;
+    height: 16px;
+}
+
 .arrow path {
     fill: white;
 }

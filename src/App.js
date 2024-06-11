@@ -1,9 +1,10 @@
 // src/App.js
-import { useEffect, useState } from "react";
-import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import axios from "axios";
 import Login from "./pages/Login/login";
 import Signup from "./pages/Signup/signup";
+import Profile from "./pages/Profile/profile";
 import Home from "./pages/Home/Home";
 import MovieDetails from "./components/MovieDetails/MovieDetails";
 import SearchResults from './components/SearchResults/SearchResults';
@@ -15,34 +16,52 @@ import './App.css';
 
 function App() {
   const [user, setUser] = useState(null);
+  const [loginVisible, setLoginVisible] = useState(false);
+  const [signupVisible, setSignupVisible] = useState(false);
+  const [profileVisible, setProfileVisible] = useState(false);
 
-	const getUser = async () => {
-		try {
-			const url = `${process.env.REACT_APP_API_URL}/auth/login/success`;
-			const { data } = await axios.get(url, { withCredentials: true });
-			setUser(data.user._json);
-		} catch (err) {
-			console.log(err);
-		}
-	};
+  const getUser = async () => {
+    try {
+      const url = `${process.env.REACT_APP_API_URL}/auth/login/success`;
+      const { data } = await axios.get(url, { withCredentials: true });
+      setUser(data.user._json);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
-	useEffect(() => {
-		getUser();
-	}, []);
+  useEffect(() => {
+    getUser();
+  }, []);
+
+  const toggleLoginVisible = () => {
+    setSignupVisible(false);
+    setLoginVisible(!loginVisible);
+  };
+
+  const toggleSignupVisible = () => {
+    setLoginVisible(false);
+    setSignupVisible(!signupVisible);
+  };
+
+  const toggleProfileVisible = () => {
+    setProfileVisible(!profileVisible);
+  }
 
   return (
     <Router>
-      <Header user={user} />
+      <Header userDetails={{ user }} toggleProfileVisible={toggleProfileVisible} toggleLoginVisible={toggleLoginVisible} />
       <Routes>
-        <Route path="/" element={ user ? <Home /> :  <Navigate to="/login" />} />
+        <Route path="/" element={<Home />} />
         <Route path="/movie/:obj/:id" element={<MovieDetails />} />
         <Route path="/search" element={<SearchResults />} />
         <Route path="/movies/:type/:id" element={<MovieLists />} />
-        <Route path="/login" element={ user ? <Navigate to="/" /> : <Login />} />
-        <Route path="/signup" element={ user ? <Navigate to="/" /> : <Signup />} />
       </Routes>
       <Footer />
       <BackToTop />
+      <Login loginVisible={loginVisible} toggleLoginVisible={toggleLoginVisible} toggleSignupVisible={toggleSignupVisible} />
+      <Signup signupVisible={signupVisible} toggleSignupVisible={toggleSignupVisible} toggleLoginVisible={toggleLoginVisible} />
+      <Profile userDetails={{user}} profileVisible={profileVisible} toggleProfileVisible={toggleProfileVisible} />
     </Router>
   );
 }
