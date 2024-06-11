@@ -122,8 +122,8 @@ const MovieDetails = () => {
             </div>
             {video &&
               <button className='trailer-btn' onClick={handleWatch}>
-                Watch
                 <AiOutlinePlayCircle className='play-icon' />
+                Trailer
               </button>
             }
           </div>

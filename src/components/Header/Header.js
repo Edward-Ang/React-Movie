@@ -1,13 +1,11 @@
 // src/components/Header.js
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { AiOutlineHeart } from "react-icons/ai";
-import { AiOutlineUser } from "react-icons/ai";
-import { AiOutlineBell } from "react-icons/ai";
-import { AiOutlineSearch } from "react-icons/ai";
+import { AiOutlineHeart, AiOutlineUser, AiOutlineBell, AiOutlineSearch } from "react-icons/ai";
 import './Header.css';
 
-const Header = () => {
+const Header = ({ userDetails, toggleProfileVisible, toggleLoginVisible }) => {
+  const user = userDetails.user;
   const [query, setQuery] = useState('');
   const navigate = useNavigate();
 
@@ -16,6 +14,14 @@ const Header = () => {
     navigate(`/search?q=${query}`);
     setQuery('');
   };
+
+  const handleProfile = async () => {
+    toggleProfileVisible();
+  };
+
+  const handleLogin = () => {
+    toggleLoginVisible();
+  }
 
   return (
     <header>
@@ -37,9 +43,13 @@ const Header = () => {
         </div>
       </form>
       <div className='utility'>
-        <button className='utility-btn' ><AiOutlineHeart className='utility-icon' /></button>
-        <button className='utility-btn' ><AiOutlineBell className='utility-icon' /></button>
-        <button className='utility-btn' ><AiOutlineUser className='utility-icon' /></button>
+        <button className='utility-btn'><AiOutlineHeart className='utility-icon' /></button>
+        <button className='utility-btn'><AiOutlineBell className='utility-icon' /></button>
+        {user ? (
+          <img className='profile-pic' src={user.picture} alt={user.name} title={user.name} onClick={handleProfile} />
+        ) : (
+          <button className='utility-btn' onClick={handleLogin}><AiOutlineUser className='utility-icon' /></button>
+        )}
       </div>
     </header>
   );

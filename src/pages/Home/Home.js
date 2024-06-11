@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { fetchMovies, fetchTv } from '../api';
-import MovieCard from './MovieCard/MovieCard';
+import { fetchMovies, fetchTv } from '../../api';
+import MovieCard from '../../components/MovieCard/MovieCard';
 import { AiOutlineRight } from "react-icons/ai";
 import { useMediaQuery } from 'react-responsive';
 import './Home.css';
@@ -49,7 +49,7 @@ const Home = () => {
         <div className='section-header'>
           <h2>Popular TV Shows</h2>
           <Link to={`/movies/${'popular'}/${'tv'}`} className='more-link' >
-          <button className='more-btn'>More <AiOutlineRight className='right-icon' /></button>
+            <button className='more-btn'>More <AiOutlineRight className='right-icon' /></button>
           </Link>
         </div>
         <div className="movie-container">
@@ -62,7 +62,7 @@ const Home = () => {
         <div className='section-header'>
           <h2>Top Rated TV Shows</h2>
           <Link to={`/movies/${'top_rated'}/${'tv'}`} className='more-link' >
-          <button className='more-btn'>More <AiOutlineRight className='right-icon' /></button>
+            <button className='more-btn'>More <AiOutlineRight className='right-icon' /></button>
           </Link>
         </div>
         <div className="movie-container">
@@ -75,7 +75,7 @@ const Home = () => {
         <div className='section-header'>
           <h2>Upcoming Movies</h2>
           <Link to={`/movies/${'upcoming'}/${'movie'}`} className='more-link' >
-          <button className='more-btn'>More <AiOutlineRight className='right-icon' /></button>
+            <button className='more-btn'>More <AiOutlineRight className='right-icon' /></button>
           </Link>
         </div>
         <div className="movie-container">
