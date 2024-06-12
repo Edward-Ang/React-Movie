@@ -23,17 +23,33 @@ function App() {
 
   const getUser = async () => {
     try {
+      const token = localStorage.getItem('token');
+      if (!token) {
+        throw new Error('No token found');
+      }
       const url = `${process.env.REACT_APP_API_URL}/auth/login/success`;
-      const { data } = await axios.get(url, { withCredentials: true });
-      setUser(data.user._json);
+      const { data } = await axios.get(url, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        },
+        withCredentials: true
+      });
+      setUser(data.user);
     } catch (err) {
-      console.log(err);
+      console.log('Error getting user:', err);
     }
   };
 
   useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const token = urlParams.get('token');
+    
+    if (token) {
+      localStorage.setItem('token', token);
+    }
     getUser();
   }, []);
+
 
   const toggleLoginVisible = () => {
     setSignupVisible(false);
@@ -57,13 +73,13 @@ function App() {
         <Route path="/movie/:obj/:id" element={<MovieDetails />} />
         <Route path="/search" element={<SearchResults />} />
         <Route path="/movies/:type/:id" element={<MovieLists />} />
-        <Route path="/favourite" element={ <Favourite /> } />
+        <Route path="/favourite" element={<Favourite />} />
       </Routes>
       <Footer />
       <BackToTop />
       <Login loginVisible={loginVisible} toggleLoginVisible={toggleLoginVisible} toggleSignupVisible={toggleSignupVisible} />
       <Signup signupVisible={signupVisible} toggleSignupVisible={toggleSignupVisible} toggleLoginVisible={toggleLoginVisible} />
-      <Profile userDetails={{user}} profileVisible={profileVisible} toggleProfileVisible={toggleProfileVisible} />
+      <Profile userDetails={{ user }} profileVisible={profileVisible} toggleProfileVisible={toggleProfileVisible} />
     </Router>
   );
 }

@@ -14,6 +14,7 @@ function Profile({ userDetails, profileVisible, toggleProfileVisible }) {
     }
 
     const handleLogout = async () => {
+        localStorage.removeItem('token');
         window.open(`${process.env.REACT_APP_API_URL}/auth/logout`, "_self");
     };
 
@@ -25,7 +26,7 @@ function Profile({ userDetails, profileVisible, toggleProfileVisible }) {
                         <div className="card">
                             <p className="auth-title">PROFILE</p>
                             <div className='auth-profile'>
-                                <img className='profile-img' src={user.picture} alt={user.name} />
+                                <img className='profile-img' src={user.picture || '/images/fox-avatar.png'} alt={user.name} />
                                 <div className='profile-detail'>
                                     <span>{user.name}</span>
                                     <span>{user.email}</span>

@@ -1,7 +1,12 @@
-import React from 'react';
+//login.js
+import React, { useState } from "react";
+import axios from "axios";
 import './login.css';
 
 function Login({ loginVisible, toggleLoginVisible, toggleSignupVisible }) {
+	const [email, setEmail] = useState('');
+	const [password, setPassword] = useState('');
+
 	const googleAuth = () => {
 		console.log(process.env.REACT_APP_API_URL);
 		window.open(
@@ -9,6 +14,28 @@ function Login({ loginVisible, toggleLoginVisible, toggleSignupVisible }) {
 			"_self"
 		);
 	};
+
+	const handleLogin = async (e) => {
+		e.preventDefault();
+		try {
+			const response = await axios.post(`${process.env.REACT_APP_API_URL}/auth/login`, {
+				email,
+				password,
+			});
+			if (response.data.message === 'Login success') {
+				const token = response.data.token;
+				localStorage.setItem('token', token); // Store token in localStorage
+				console.log(response.data);
+				window.location = '/';
+			} else {
+				alert(response.data.message);
+			}
+		} catch (error) {
+			console.error('Login error:', error);
+			alert('Login error:', error);
+		}
+	};
+
 
 	const handleLoginVisible = () => {
 		toggleLoginVisible();
@@ -30,11 +57,13 @@ function Login({ loginVisible, toggleLoginVisible, toggleSignupVisible }) {
 					<div className="cardContainer" onClick={handleContainerClick}>
 						<div className="card">
 							<p className="auth-title">LOGIN</p>
-							<form className='login-form'>
-								<input type="text" className="auth-input" placeholder="Email" required/>
+							<form className='login-form' onSubmit={handleLogin}>
+								<input type="email" className="auth-input" name="email" onChange={(e) => setEmail(e.target.value)} placeholder="Email" required />
 								<input
 									type="password"
 									className="auth-input"
+									name="password"
+									onChange={(e) => setPassword(e.target.value)}
 									placeholder="Password"
 									required
 								/>

@@ -50,8 +50,13 @@ const Header = ({ userDetails, toggleProfileVisible, toggleLoginVisible }) => {
         <button className='utility-btn' onClick={handleFav} ><AiOutlineHeart className='utility-icon' /></button>
         <button className='utility-btn'><AiOutlineBell className='utility-icon' /></button>
         {user ? (
-          <img className='profile-pic' src={user.picture} alt={user.name} title={user.name} onClick={handleProfile} />
-        ) : (
+          <img
+          className='profile-pic'
+          src={user.picture || '/images/fox-avatar.png'}
+          alt={user.name}
+          title={user.name}
+          onClick={handleProfile}
+        />        ) : (
           <button className='utility-btn' onClick={handleLogin}><AiOutlineUser className='utility-icon' /></button>
         )}
       </div>
