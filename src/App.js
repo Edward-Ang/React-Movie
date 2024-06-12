@@ -5,10 +5,11 @@ import axios from "axios";
 import Login from "./pages/Login/login";
 import Signup from "./pages/Signup/signup";
 import Profile from "./pages/Profile/profile";
+import Favourite from "./pages/Favourite/favourite";
 import Home from "./pages/Home/Home";
-import MovieDetails from "./components/MovieDetails/MovieDetails";
-import SearchResults from './components/SearchResults/SearchResults';
-import MovieLists from './components/MovieLists/MovieLists';
+import MovieDetails from "./pages/MovieDetails/MovieDetails";
+import SearchResults from "./pages/SearchResults/SearchResults";
+import MovieLists from './pages/MovieLists/MovieLists';
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
 import BackToTop from './components/BackToTop/backToTop';
@@ -56,6 +57,7 @@ function App() {
         <Route path="/movie/:obj/:id" element={<MovieDetails />} />
         <Route path="/search" element={<SearchResults />} />
         <Route path="/movies/:type/:id" element={<MovieLists />} />
+        <Route path="/favourite" element={ <Favourite /> } />
       </Routes>
       <Footer />
       <BackToTop />

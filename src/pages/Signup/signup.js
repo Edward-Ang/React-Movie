@@ -1,5 +1,11 @@
+//signup.js
+import React, { useState } from "react";
+import axios from "axios";
 
-function Signup( {signupVisible, toggleSignupVisible, toggleLoginVisible} ) {
+function Signup({ signupVisible, toggleSignupVisible, toggleLoginVisible }) {
+	const [username, setUsername] = useState('');
+	const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
 
 	const googleAuth = () => {
 		window.open(
@@ -7,6 +13,25 @@ function Signup( {signupVisible, toggleSignupVisible, toggleLoginVisible} ) {
 			"_self"
 		);
 	};
+
+	const handleSignup = async (e) => {
+		e.preventDefault();
+		try {
+		  const response = await axios.post(`${process.env.REACT_APP_API_URL}/auth/signup`, {
+			username,
+			email,
+			password,
+		  });
+		  if (response.data.message === 'User created successfully') {
+			handleLoginVisible();
+		  } else {
+			alert(response.data.message);
+		  }
+		} catch (error) {
+		  console.error('Signup error:', error);
+		  alert('Signup error:', error);
+		}
+	  };
 
 	const handleSignupVisible = () => {
 		toggleSignupVisible();
@@ -28,14 +53,19 @@ function Signup( {signupVisible, toggleSignupVisible, toggleLoginVisible} ) {
 					<div class="cardContainer" onClick={handleContainerClick}>
 						<div class="card">
 							<p class="auth-title">SIGN UP</p>
-							<input type="text" className="auth-input" placeholder="Username" />
-							<input type="email" className="auth-input" placeholder="Email" />
-							<input
-								type="password"
-								className="auth-input"
-								placeholder="Password"
-							/>
-							<button className="login-btn">Sign Up</button>
+							<form className="signup-form" onSubmit={handleSignup}>
+								<input type="text" className="auth-input" name="username" onChange={(e) => setUsername(e.target.value)} placeholder="Username" required />
+								<input type="email" className="auth-input" name="email"  onChange={(e) => setEmail(e.target.value)} placeholder="Email" required />
+								<input
+									type="password"
+									className="auth-input"
+									name="password"
+									onChange={(e) => setPassword(e.target.value)}
+									placeholder="Password"
+									required
+								/>
+								<button type="submit" className="login-btn">Sign Up</button>
+							</form>
 							<div class="separator">
 								<div></div>
 								<span>OR</span>

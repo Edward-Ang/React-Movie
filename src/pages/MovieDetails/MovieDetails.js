@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { fetchMovieDetails, similarMovies, fetchTvDetails, fetchMovies, fetchTv, fetchReviews, fetchVideos } from '../../api';
-import SideMovieCard from '../SideMovieCard/SideMovieCard';
-import ReviewCard from '../ReviewCard/ReviewCard';
+import SideMovieCard from '../../components/SideMovieCard/SideMovieCard'
+import ReviewCard from '../../components/ReviewCard/ReviewCard';
 import { AiOutlineComment } from "react-icons/ai";
 import { AiOutlinePlayCircle } from "react-icons/ai";
 import './MovieDetails.css';

@@ -41,6 +41,13 @@
     color: white;
 }
 
+.signup-form, .login-form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 .cardContainer::before {
     width: 100px;
     height: 100px;

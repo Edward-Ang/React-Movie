@@ -30,13 +30,16 @@ function Login({ loginVisible, toggleLoginVisible, toggleSignupVisible }) {
 					<div className="cardContainer" onClick={handleContainerClick}>
 						<div className="card">
 							<p className="auth-title">LOGIN</p>
-							<input type="text" className="auth-input" placeholder="Email" />
-							<input
-								type="password"
-								className="auth-input"
-								placeholder="Password"
-							/>
-							<button className="login-btn">Sign In</button>
+							<form className='login-form'>
+								<input type="text" className="auth-input" placeholder="Email" required/>
+								<input
+									type="password"
+									className="auth-input"
+									placeholder="Password"
+									required
+								/>
+								<button type='submit' className="login-btn">Sign In</button>
+							</form>
 							<div className="separator">
 								<div></div>
 								<span>OR</span>

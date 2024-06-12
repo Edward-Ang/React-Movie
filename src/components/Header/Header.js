@@ -23,6 +23,10 @@ const Header = ({ userDetails, toggleProfileVisible, toggleLoginVisible }) => {
     toggleLoginVisible();
   }
 
+  const handleFav = () => {
+    navigate('/favourite');
+  }
+
   return (
     <header>
       <Link className='header-logo' to='/'>
@@ -43,7 +47,7 @@ const Header = ({ userDetails, toggleProfileVisible, toggleLoginVisible }) => {
         </div>
       </form>
       <div className='utility'>
-        <button className='utility-btn'><AiOutlineHeart className='utility-icon' /></button>
+        <button className='utility-btn' onClick={handleFav} ><AiOutlineHeart className='utility-icon' /></button>
         <button className='utility-btn'><AiOutlineBell className='utility-icon' /></button>
         {user ? (
           <img className='profile-pic' src={user.picture} alt={user.name} title={user.name} onClick={handleProfile} />
