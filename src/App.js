@@ -73,7 +73,7 @@ function App() {
         <Route path="/movie/:obj/:id" element={<MovieDetails user={ user } />} />
         <Route path="/search" element={<SearchResults />} />
         <Route path="/movies/:type/:id" element={<MovieLists />} />
-        <Route path="/favourite" element={<Favourite />} />
+        <Route path="/favourite" element={<Favourite userDetail={ user } />} />
       </Routes>
       <Footer />
       <BackToTop />

@@ -1,10 +1,25 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
 import './FavCard.css';
 
 function FavCard({ userDetail, movie, favCardVisible, toggleFavCardVisible }) {
     const user = userDetail;
     const [favrating, setFavrating] = useState('');
+    const [errormsg, setErrormsg] = useState('');
+
+    useEffect(() => {
+        if (errormsg) {
+            toast.info(errormsg, {
+                position: 'top-center',
+                autoClose: 1500,
+                hideProgressBar: true,
+                closeButton: false
+            });
+            setErrormsg(''); // Clear the errormsg state after displaying the toast
+        }
+    }, [errormsg]);
 
     const handleFavCardVisible = () => {
         toggleFavCardVisible();
@@ -23,15 +38,28 @@ function FavCard({ userDetail, movie, favCardVisible, toggleFavCardVisible }) {
                 user,
                 favrating,
             });
-            console.log(response.data);
+            console.log(response.data.message);
+            toast.success('Favourite added sucessfully', {
+                position: 'top-center',
+                autoClose: 1500,
+                hideProgressBar: true,
+                closeButton: false
+            });
             handleFavCardVisible();
-                } catch (err) {
-            console.log(err);
+        } catch (error) {
+            if (error.response && error.response.status === 400) {
+                console.log(error.response.data.message);
+                setErrormsg(error.response.data.message);
+            } else {
+                console.log('An unexpected error occurred. Please try again.');
+                setErrormsg(error.response.data.message);
+            }
         }
     }
 
     return (
         <>
+            <ToastContainer />
             {favCardVisible && (
                 <div className="fav-bg" onClick={handleFavCardVisible}>
                     <div className="cardContainer" id='favCardContainer' onClick={handleContainerClick}>
