@@ -70,7 +70,7 @@ function App() {
       <Header userDetails={{ user }} toggleProfileVisible={toggleProfileVisible} toggleLoginVisible={toggleLoginVisible} />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/movie/:obj/:id" element={<MovieDetails />} />
+        <Route path="/movie/:obj/:id" element={<MovieDetails user={ user } />} />
         <Route path="/search" element={<SearchResults />} />
         <Route path="/movies/:type/:id" element={<MovieLists />} />
         <Route path="/favourite" element={<Favourite />} />

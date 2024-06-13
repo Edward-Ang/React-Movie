@@ -11,7 +11,7 @@ function Favourite() {
                 <div className="favourite-container">
                     <div className="favourite-list">
                         <div className="favourite-card">
-                            
+
                         </div>
                     </div>
                 </div>

@@ -1,24 +1,24 @@
-.detail-wrapper{
+.detail-wrapper {
     display: flex;
     justify-content: space-between;
     width: auto;
     padding: 25px 6.5% 3% 6.5%;
 }
 
-.detail-left{
+.detail-left {
     display: flex;
     flex-direction: column;
     width: 70%;
 }
 
-.detail-video{
+.detail-video {
     width: auto;
     height: 490px;
     padding: 0 25px 0 0;
     margin-bottom: 25px;
 }
 
-.video-iframe{
+.video-iframe {
     width: 100%;
     height: 100%;
     border: none;
@@ -26,20 +26,52 @@
     filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.3));
 }
 
-.detail-left-top{
+.detail-left-top {
     width: 100%;
     height: 353px;
     display: flex;
 }
 
-.detail-poster{
+.poster-container {
+    position: relative;
+    display: inline-block;
+    width: 28%;
+}
+
+.detail-poster {
+    display: block;
     border-radius: 12px;
     height: 100%;
-    width: 28%;
+    width: 100%;
     filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.3));
 }
 
-.detail-container{
+.fav-btn {
+    height: 43px;
+    width: 43px;
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    color: var(--light-font);
+    background-color: rgba(0, 0, 0, 0.5);
+    /* semi-transparent background */
+    border: none;
+    border-radius: 7px;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.fav-btn:hover{
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.heart-icon{
+    margin-top: 2px;
+    width: 24px;
+    height: 24px;
+}
+
+.detail-container {
     display: block;
     width: 72%;
     height: 100%;
@@ -47,15 +79,16 @@
     padding: 0 25px 0 25px;
 }
 
-.detail-container h1{
+.detail-container h1 {
     margin-top: 0;
     margin-bottom: 0;
 }
 
-.movie-overview{
+.movie-overview {
     display: -webkit-box;
     -webkit-box-orient: vertical;
-    -webkit-line-clamp: 4; /* Change this to the number of lines you want to show */
+    -webkit-line-clamp: 4;
+    /* Change this to the number of lines you want to show */
     overflow: hidden;
     text-overflow: ellipsis;
     text-align: justify;
@@ -63,44 +96,45 @@
     margin-bottom: 25px;
 }
 
-.movie-date, .movie-rating{
+.movie-date,
+.movie-rating {
     margin-bottom: 25px;
 }
 
-.movie-detail-rating{
+.movie-detail-rating {
     color: var(--star-icon);
 }
 
-.detail-review{
+.detail-review {
     height: 60%;
 }
 
-.review-section{
+.review-section {
     padding: 25px 25px 0 0;
 }
 
-.review-section h2{
+.review-section h2 {
     margin: 0;
     color: white;
     margin-bottom: 25px;
 }
 
-.detail-right{
+.detail-right {
     width: 30%;
     height: fit-content;
 }
 
-.detail-right h2{
+.detail-right h2 {
     margin: 0;
     color: white;
     margin-bottom: 25px;
 }
 
-.genres{
+.genres {
     margin-bottom: 25px;
 }
 
-.genre-item{
+.genre-item {
     text-align: center;
     background-color: var(--grey-bg);
     margin-right: 12px;
@@ -132,7 +166,7 @@
     background: var(--blue-bg-hover);
 }
 
-.play-icon{
+.play-icon {
     width: 20px;
     height: 20px;
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
@@ -140,7 +174,7 @@
     margin-right: 3px;
 }
 
-.no-reviews{
+.no-reviews {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -152,11 +186,11 @@
     border-radius: 12px;
 }
 
-.no-reviews img{
+.no-reviews img {
     object-fit: cover;
 }
 
-.comment-icon{
+.comment-icon {
     font-size: 54px;
     margin-bottom: 2px;
 }

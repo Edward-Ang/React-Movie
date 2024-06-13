@@ -1,11 +1,26 @@
 //signup.js
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import axios from "axios";
 
 function Signup({ signupVisible, toggleSignupVisible, toggleLoginVisible }) {
 	const [username, setUsername] = useState('');
 	const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+	const [password, setPassword] = useState('');
+	const [errormsg, setErrormsg] = useState('');
+
+	useEffect(() => {
+		if (errormsg) {
+			toast.info(errormsg, {
+				position: 'top-center',
+				autoClose: 1500,
+				hideProgressBar: true,
+				closeButton: false
+			});
+			setErrormsg('');
+		}
+	}, [errormsg]);
 
 	const googleAuth = () => {
 		window.open(
@@ -17,21 +32,24 @@ function Signup({ signupVisible, toggleSignupVisible, toggleLoginVisible }) {
 	const handleSignup = async (e) => {
 		e.preventDefault();
 		try {
-		  const response = await axios.post(`${process.env.REACT_APP_API_URL}/auth/signup`, {
-			username,
-			email,
-			password,
-		  });
-		  if (response.data.message === 'User created successfully') {
-			handleLoginVisible();
-		  } else {
-			alert(response.data.message);
-		  }
+			const response = await axios.post(`${process.env.REACT_APP_API_URL}/auth/signup`, {
+				username,
+				email,
+				password,
+			});
+			if (response.data.message === 'User created successfully') {
+				handleLoginVisible();
+			} else {
+				setErrormsg(response.data.message);
+			}
 		} catch (error) {
-		  console.error('Signup error:', error);
-		  alert('Signup error:', error);
+			if (error.response && error.response.status === 400) {
+				setErrormsg(error.response.data.message);
+			} else {
+				setErrormsg('An unexpected error occurred. Please try again.');
+			}
 		}
-	  };
+	};
 
 	const handleSignupVisible = () => {
 		toggleSignupVisible();
@@ -48,6 +66,7 @@ function Signup({ signupVisible, toggleSignupVisible, toggleLoginVisible }) {
 
 	return (
 		<>
+			<ToastContainer />
 			{signupVisible && (
 				<div className="auth-bg" onClick={handleSignupVisible}>
 					<div class="cardContainer" onClick={handleContainerClick}>
@@ -55,7 +74,7 @@ function Signup({ signupVisible, toggleSignupVisible, toggleLoginVisible }) {
 							<p class="auth-title">SIGN UP</p>
 							<form className="signup-form" onSubmit={handleSignup}>
 								<input type="text" className="auth-input" name="username" onChange={(e) => setUsername(e.target.value)} placeholder="Username" required />
-								<input type="email" className="auth-input" name="email"  onChange={(e) => setEmail(e.target.value)} placeholder="Email" required />
+								<input type="email" className="auth-input" name="email" onChange={(e) => setEmail(e.target.value)} placeholder="Email" required />
 								<input
 									type="password"
 									className="auth-input"
