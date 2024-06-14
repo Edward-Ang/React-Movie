@@ -1,5 +1,4 @@
-//login.js
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from "axios";
@@ -8,19 +7,6 @@ import './login.css';
 function Login({ loginVisible, toggleLoginVisible, toggleSignupVisible }) {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
-	const [errormsg, setErrormsg] = useState('');
-
-	useEffect(() => {
-		if (errormsg) {
-			toast.info(errormsg, {
-				position: 'top-center',
-				autoClose: 1500,
-				hideProgressBar: true,
-				closeButton: false
-			});
-			setErrormsg(''); // Clear the errormsg state after displaying the toast
-		}
-	}, [errormsg]);
 
 	const googleAuth = () => {
 		console.log(process.env.REACT_APP_API_URL);
@@ -43,23 +29,46 @@ function Login({ loginVisible, toggleLoginVisible, toggleSignupVisible }) {
 				console.log(response.data);
 				window.location = '/';
 			} else {
-				setErrormsg(response.data.message);
+				toast.info(response.data.message, {
+					position: 'top-center',
+					autoClose: 1500,
+					hideProgressBar: true,
+					closeButton: false
+				});
 			}
 		} catch (error) {
 			if (error.response && error.response.status === 400) {
-				setErrormsg(error.response.data.message);
+				toast.info(error.response.data.message, {
+					position: 'top-center',
+					autoClose: 1500,
+					hideProgressBar: true,
+					closeButton: false
+				});
 			} else {
-				setErrormsg('An unexpected error occurred. Please try again.');
+				toast.error(error.response.data.message, {
+					position: 'top-center',
+					autoClose: 1500,
+					hideProgressBar: true,
+					closeButton: false
+				});
 			}
 		}
 	};
 
 	const handleLoginVisible = () => {
-		toggleLoginVisible();
+		if (typeof toggleLoginVisible === 'function') {
+			toggleLoginVisible();
+		} else {
+			console.error("toggleLoginVisible is not a function");
+		}
 	}
 
 	const handleSignupVisible = () => {
-		toggleSignupVisible();
+		if (typeof toggleSignupVisible === 'function') {
+			toggleSignupVisible();
+		} else {
+			console.error("toggleSignupVisible is not a function");
+		}
 	}
 
 	const handleContainerClick = (event) => {
@@ -76,7 +85,14 @@ function Login({ loginVisible, toggleLoginVisible, toggleSignupVisible }) {
 						<div className="card">
 							<p className="auth-title">LOGIN</p>
 							<form className='login-form' onSubmit={handleLogin}>
-								<input type="email" className="auth-input" name="email" onChange={(e) => setEmail(e.target.value)} placeholder="Email" required />
+								<input
+									type="email"
+									className="auth-input"
+									name="email"
+									onChange={(e) => setEmail(e.target.value)}
+									placeholder="Email"
+									required
+								/>
 								<input
 									type="password"
 									className="auth-input"
