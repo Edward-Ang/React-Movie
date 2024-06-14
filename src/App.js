@@ -5,10 +5,11 @@ import axios from "axios";
 import Login from "./pages/Login/login";
 import Signup from "./pages/Signup/signup";
 import Profile from "./pages/Profile/profile";
+import Favourite from "./pages/Favourite/favourite";
 import Home from "./pages/Home/Home";
-import MovieDetails from "./components/MovieDetails/MovieDetails";
-import SearchResults from './components/SearchResults/SearchResults';
-import MovieLists from './components/MovieLists/MovieLists';
+import MovieDetails from "./pages/MovieDetails/MovieDetails";
+import SearchResults from "./pages/SearchResults/SearchResults";
+import MovieLists from './pages/MovieLists/MovieLists';
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
 import BackToTop from './components/BackToTop/backToTop';
@@ -22,17 +23,33 @@ function App() {
 
   const getUser = async () => {
     try {
+      const token = localStorage.getItem('token');
+      if (!token) {
+        throw new Error('No token found');
+      }
       const url = `${process.env.REACT_APP_API_URL}/auth/login/success`;
-      const { data } = await axios.get(url, { withCredentials: true });
-      setUser(data.user._json);
+      const { data } = await axios.get(url, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        },
+        withCredentials: true
+      });
+      setUser(data.user);
     } catch (err) {
-      console.log(err);
+      console.log('Error getting user:', err);
     }
   };
 
   useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const token = urlParams.get('token');
+    
+    if (token) {
+      localStorage.setItem('token', token);
+    }
     getUser();
   }, []);
+
 
   const toggleLoginVisible = () => {
     setSignupVisible(false);
@@ -53,15 +70,16 @@ function App() {
       <Header userDetails={{ user }} toggleProfileVisible={toggleProfileVisible} toggleLoginVisible={toggleLoginVisible} />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/movie/:obj/:id" element={<MovieDetails />} />
+        <Route path="/movie/:obj/:id" element={<MovieDetails user={ user } />} />
         <Route path="/search" element={<SearchResults />} />
         <Route path="/movies/:type/:id" element={<MovieLists />} />
+        <Route path="/favourite" element={<Favourite userDetail={ user } />} />
       </Routes>
       <Footer />
       <BackToTop />
       <Login loginVisible={loginVisible} toggleLoginVisible={toggleLoginVisible} toggleSignupVisible={toggleSignupVisible} />
       <Signup signupVisible={signupVisible} toggleSignupVisible={toggleSignupVisible} toggleLoginVisible={toggleLoginVisible} />
-      <Profile userDetails={{user}} profileVisible={profileVisible} toggleProfileVisible={toggleProfileVisible} />
+      <Profile userDetails={{ user }} profileVisible={profileVisible} toggleProfileVisible={toggleProfileVisible} />
     </Router>
   );
 }

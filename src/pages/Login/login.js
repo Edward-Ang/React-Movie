@@ -1,13 +1,57 @@
-import React from 'react';
+//login.js
+import React, { useState, useEffect } from "react";
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import axios from "axios";
 import './login.css';
 
 function Login({ loginVisible, toggleLoginVisible, toggleSignupVisible }) {
+	const [email, setEmail] = useState('');
+	const [password, setPassword] = useState('');
+	const [errormsg, setErrormsg] = useState('');
+
+	useEffect(() => {
+		if (errormsg) {
+			toast.info(errormsg, {
+				position: 'top-center',
+				autoClose: 1500,
+				hideProgressBar: true,
+				closeButton: false
+			});
+			setErrormsg(''); // Clear the errormsg state after displaying the toast
+		}
+	}, [errormsg]);
+
 	const googleAuth = () => {
 		console.log(process.env.REACT_APP_API_URL);
 		window.open(
 			`${process.env.REACT_APP_API_URL}/auth/google/callback`,
 			"_self"
 		);
+	};
+
+	const handleLogin = async (e) => {
+		e.preventDefault();
+		try {
+			const response = await axios.post(`${process.env.REACT_APP_API_URL}/auth/login`, {
+				email,
+				password,
+			});
+			if (response.data.message === 'Login success') {
+				const token = response.data.token;
+				localStorage.setItem('token', token); // Store token in localStorage
+				console.log(response.data);
+				window.location = '/';
+			} else {
+				setErrormsg(response.data.message);
+			}
+		} catch (error) {
+			if (error.response && error.response.status === 400) {
+				setErrormsg(error.response.data.message);
+			} else {
+				setErrormsg('An unexpected error occurred. Please try again.');
+			}
+		}
 	};
 
 	const handleLoginVisible = () => {
@@ -25,18 +69,24 @@ function Login({ loginVisible, toggleLoginVisible, toggleSignupVisible }) {
 
 	return (
 		<>
+			<ToastContainer />
 			{loginVisible && (
 				<div className="auth-bg" onClick={handleLoginVisible}>
 					<div className="cardContainer" onClick={handleContainerClick}>
 						<div className="card">
 							<p className="auth-title">LOGIN</p>
-							<input type="text" className="auth-input" placeholder="Email" />
-							<input
-								type="password"
-								className="auth-input"
-								placeholder="Password"
-							/>
-							<button className="login-btn">Sign In</button>
+							<form className='login-form' onSubmit={handleLogin}>
+								<input type="email" className="auth-input" name="email" onChange={(e) => setEmail(e.target.value)} placeholder="Email" required />
+								<input
+									type="password"
+									className="auth-input"
+									name="password"
+									onChange={(e) => setPassword(e.target.value)}
+									placeholder="Password"
+									required
+								/>
+								<button type='submit' className="login-btn">Sign In</button>
+							</form>
 							<div className="separator">
 								<div></div>
 								<span>OR</span>

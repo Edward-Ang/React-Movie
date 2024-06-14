@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from 'react-router-dom';
 import { fetchMovies, fetchTv } from "../../api";
-import MovieCard from "../MovieCard/MovieCard";
+import MovieCard from "../../components/MovieCard/MovieCard";
 import './MovieLists.css';
 
 const MovieLists = () => {

@@ -5,7 +5,7 @@ const ReviewCard = (props) => {
     const { author_details, content, created_at } = props;
     const avatarPath = author_details?.avatar_path
         ? `https://image.tmdb.org/t/p/w500/${author_details.avatar_path}`
-        : "/favicon/favicon.ico";
+        : "/images/fox-avatar.png";
     const [showFullContent, setShowFullContent] = useState(false);
     const formattedDate = new Date(created_at).toLocaleDateString();
     const maxLength = 350; // Set the maximum length of the content to display initially
