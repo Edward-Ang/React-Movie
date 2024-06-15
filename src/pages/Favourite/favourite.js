@@ -33,6 +33,9 @@ function Favourite({ userDetail }) {
         return <div>Loading...</div>;
     }
 
+    // Sort the favLists array based on rating from high to low
+    const sortedFavLists = [...favLists].sort((a, b) => b.rating - a.rating);
+
     return (
         <>
             <div className="favourite-div">
@@ -41,23 +44,23 @@ function Favourite({ userDetail }) {
                 </div>
                 <div className="favourite-container">
                     <div className="favourite-list">
-                        {favLists.length > 0 ? (
+                        {sortedFavLists.length > 0 ? (
                             <table className="fav-list-table">
                                 <thead>
                                     <tr>
-                                        <th>#</th>
+                                        <th className="rank-col">#</th>
                                         <th>Movie</th>
-                                        <th className="date-col">Release Date</th>
+                                        <th className="date-col">Release</th>
                                         <th className="rating-col">Rating</th>
                                         <th className="more-col"></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {favLists.map((movie, index) => (
+                                    {sortedFavLists.map((movie, index) => (
                                         <tr key={index}>
-                                            <td>{index + 1}</td>
+                                            <td className="rank-cell">{index + 1}</td>
                                             <td>{movie.movieName}</td>
-                                            <td className="date-cell">{new Date(movie.movieDate).getFullYear()}</td>
+                                            <td className="date-cell"><span>{new Date(movie.movieDate).getFullYear()}</span></td>
                                             <td className="rating-cell">
                                                 <div>
                                                     <span>{movie.rating.toFixed(1)}</span><AiFillStar className='fav-star' />

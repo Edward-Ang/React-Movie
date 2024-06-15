@@ -60,14 +60,18 @@ tr {
     height: 100%;
 }
 
-
+.rank-col,
 .rating-col,
-.more-col {
+.date-col {
     width: 5%;
 }
 
-.date-col {
-    width: 10%;
+.more-col{
+    width: 3%;
+}
+
+.date-cell{
+    text-align: center;
 }
 
 .rating-cell {
@@ -81,7 +85,8 @@ tr {
 }
 
 .fav-star {
-    margin-top: 2px;
+    font-size: 16px;
+    margin-top: 1.5px;
     margin-left: 3px;
 }
 

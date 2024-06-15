@@ -29,7 +29,7 @@ function Login({ loginVisible, toggleLoginVisible, toggleSignupVisible }) {
 				console.log(response.data);
 				window.location = '/';
 			} else {
-				toast.info(response.data.message, {
+				toast.info('Invalid email or password', {
 					position: 'top-center',
 					autoClose: 1500,
 					hideProgressBar: true,
@@ -38,14 +38,14 @@ function Login({ loginVisible, toggleLoginVisible, toggleSignupVisible }) {
 			}
 		} catch (error) {
 			if (error.response && error.response.status === 400) {
-				toast.info(error.response.data.message, {
+				toast.info('Invalid email or password', {
 					position: 'top-center',
 					autoClose: 1500,
 					hideProgressBar: true,
 					closeButton: false
 				});
 			} else {
-				toast.error(error.response.data.message, {
+				toast.error('Internal server error', {
 					position: 'top-center',
 					autoClose: 1500,
 					hideProgressBar: true,
