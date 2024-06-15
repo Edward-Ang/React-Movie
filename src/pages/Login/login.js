@@ -30,7 +30,7 @@ function Login({ loginVisible, toggleLoginVisible, toggleSignupVisible }) {
 				console.log(response.data);
 				window.location = '/';
 			} else {
-				toast.info(response.data.message, {
+				toast.info('Invalid email or password', {
 					position: 'top-center',
 					autoClose: 1500,
 					hideProgressBar: true,
@@ -39,14 +39,14 @@ function Login({ loginVisible, toggleLoginVisible, toggleSignupVisible }) {
 			}
 		} catch (error) {
 			if (error.response && error.response.status === 400) {
-				toast.info(error.response.message, {
+				toast.info('Invalid email or password', {
 					position: 'top-center',
 					autoClose: 1500,
 					hideProgressBar: true,
 					closeButton: false
 				});
 			} else {
-				toast.error(error.response.message, {
+				toast.error('Internal server error', {
 					position: 'top-center',
 					autoClose: 1500,
 					hideProgressBar: true,
@@ -57,11 +57,19 @@ function Login({ loginVisible, toggleLoginVisible, toggleSignupVisible }) {
 	};
 
 	const handleLoginVisible = () => {
-		toggleLoginVisible();
+		if (typeof toggleLoginVisible === 'function') {
+			toggleLoginVisible();
+		} else {
+			console.error("toggleLoginVisible is not a function");
+		}
 	}
 
 	const handleSignupVisible = () => {
-		toggleSignupVisible();
+		if (typeof toggleSignupVisible === 'function') {
+			toggleSignupVisible();
+		} else {
+			console.error("toggleSignupVisible is not a function");
+		}
 	}
 
 	const handleContainerClick = (event) => {
@@ -78,7 +86,14 @@ function Login({ loginVisible, toggleLoginVisible, toggleSignupVisible }) {
 						<div className="card">
 							<p className="auth-title">LOGIN</p>
 							<form className='login-form' onSubmit={handleLogin}>
-								<input type="email" className="auth-input" name="email" onChange={(e) => setEmail(e.target.value)} placeholder="Email" required />
+								<input
+									type="email"
+									className="auth-input"
+									name="email"
+									onChange={(e) => setEmail(e.target.value)}
+									placeholder="Email"
+									required
+								/>
 								<input
 									type="password"
 									className="auth-input"

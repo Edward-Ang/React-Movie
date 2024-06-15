@@ -7,7 +7,7 @@ import FavCard from '../../components/FavCard/FavCard';
 import { AiOutlineHeart, AiOutlinePlayCircle, AiOutlineComment } from "react-icons/ai";
 import './MovieDetails.css';
 
-const MovieDetails = ({ user }) => {
+const MovieDetails = ({ user, toggleLoginVisible }) => {
   const { obj, id } = useParams();
   const [movie, setMovie] = useState(null);
   const [recommend, setRecommend] = useState([]);
@@ -82,7 +82,11 @@ const MovieDetails = ({ user }) => {
   }
 
   const toggleFavCardVisible = () => {
-    setFavCardVisible(!favCardVisible);
+    if (user) {
+      setFavCardVisible(!favCardVisible);
+    } else {
+      toggleLoginVisible();
+    }
   }
 
   if (!movie) return <div>Loading...</div>;
@@ -126,7 +130,7 @@ const MovieDetails = ({ user }) => {
                 <span className="movie-detail-rating">{movie.vote_average ? movie.vote_average.toFixed(1) : 'N/A'}</span>
               </div>
               <div className='genres'>
-                {genre.map((genreName, index) => (
+                {genre.slice(0, 3).map((genreName, index) => (
                   <span key={index} className='genre-item'>{genreName}</span>
                 ))}
               </div>
