@@ -25,7 +25,7 @@ function App() {
     try {
       const token = localStorage.getItem('token');
       if (!token) {
-        throw new Error('No token found');
+        console.log('No token found.');
       }
       const url = `${process.env.REACT_APP_API_URL}/auth/login/success`;
       const { data } = await axios.get(url, {
@@ -49,7 +49,6 @@ function App() {
     }
     getUser();
   }, []);
-
 
   const toggleLoginVisible = () => {
     setSignupVisible(false);

@@ -1,5 +1,5 @@
 //login.js
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from "axios";
@@ -8,19 +8,6 @@ import './login.css';
 function Login({ loginVisible, toggleLoginVisible, toggleSignupVisible }) {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
-	const [errormsg, setErrormsg] = useState('');
-
-	useEffect(() => {
-		if (errormsg) {
-			toast.info(errormsg, {
-				position: 'top-center',
-				autoClose: 1500,
-				hideProgressBar: true,
-				closeButton: false
-			});
-			setErrormsg(''); // Clear the errormsg state after displaying the toast
-		}
-	}, [errormsg]);
 
 	const googleAuth = () => {
 		console.log(process.env.REACT_APP_API_URL);
@@ -43,13 +30,28 @@ function Login({ loginVisible, toggleLoginVisible, toggleSignupVisible }) {
 				console.log(response.data);
 				window.location = '/';
 			} else {
-				setErrormsg(response.data.message);
+				toast.info(response.data.message, {
+					position: 'top-center',
+					autoClose: 1500,
+					hideProgressBar: true,
+					closeButton: false
+				});
 			}
 		} catch (error) {
 			if (error.response && error.response.status === 400) {
-				setErrormsg(error.response.data.message);
+				toast.info(error.response.message, {
+					position: 'top-center',
+					autoClose: 1500,
+					hideProgressBar: true,
+					closeButton: false
+				});
 			} else {
-				setErrormsg('An unexpected error occurred. Please try again.');
+				toast.error(error.response.message, {
+					position: 'top-center',
+					autoClose: 1500,
+					hideProgressBar: true,
+					closeButton: false
+				});
 			}
 		}
 	};
