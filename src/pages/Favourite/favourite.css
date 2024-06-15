@@ -47,6 +47,7 @@ td {
 th {
     cursor: pointer;
     border-top: 2px solid var(--grey-bg);
+    border-bottom: 2px solid var(--grey-bg);
     background-color: var(--card_black);
     position: sticky;
     top: -8.5px;
@@ -68,6 +69,16 @@ tr {
 
 .more-col{
     width: 3%;
+}
+
+.fav-movie-link{
+    color: var(--light-font);
+    text-decoration: none;
+}
+
+.fav-movie-link:hover{
+    color: var(--blue-font);
+    text-decoration: underline;
 }
 
 .date-cell{
