@@ -119,7 +119,7 @@ const MovieDetails = ({ user, toggleLoginVisible }) => {
                 }
                 alt={movie.title || movie.name}
               />
-              <button class="fav-btn" onClick={toggleFavCardVisible} ><AiOutlineHeart className='heart-icon' /></button>
+              <button className="fav-btn" onClick={toggleFavCardVisible} ><AiOutlineHeart className='heart-icon' /></button>
             </div>
             <div className="detail-container">
               <h1>{movie.title ? movie.title : movie.name}</h1>
