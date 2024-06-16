@@ -1,5 +1,5 @@
 // src/components/Header.js
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { AiOutlineHeart, AiOutlineUser, AiOutlineBell, AiOutlineSearch } from "react-icons/ai";
 import './Header.css';
@@ -8,6 +8,24 @@ const Header = ({ userDetails, toggleProfileVisible, toggleLoginVisible }) => {
   const user = userDetails.user;
   const [query, setQuery] = useState('');
   const navigate = useNavigate();
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 0) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    // Cleanup event listener on component unmount
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -32,7 +50,7 @@ const Header = ({ userDetails, toggleProfileVisible, toggleLoginVisible }) => {
   }
 
   return (
-    <header>
+    <header className={`header ${isScrolled ? 'colored' : 'transparent'}`}>
       <Link className='header-logo' to='/'>
         <img className='logo' src='./favicon.ico' alt='logo' />
         <h2 className='name'>PopWatch</h2>

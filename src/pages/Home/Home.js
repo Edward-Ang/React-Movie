@@ -32,6 +32,9 @@ const Home = () => {
 
   return (
     <div className="home-div">
+      <div className='backdrop-section'>
+        <img className='backdrop-img' src={popularMovies[0] ? `https://image.tmdb.org/t/p/original/${popularMovies[0].backdrop_path}` :'https://placehold.co/500x750.png' } alt='backdrop' />
+      </div>
       <div className='movie-section' >
         <div className='section-header'>
           <h2>Popular Movies</h2>
