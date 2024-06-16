@@ -8,14 +8,14 @@ const Header = ({ userDetails, toggleProfileVisible, toggleLoginVisible }) => {
   const user = userDetails.user;
   const [query, setQuery] = useState('');
   const navigate = useNavigate();
-  const [isScrolled, setIsScrolled] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(true);
 
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 0) {
         setIsScrolled(true);
       } else {
-        setIsScrolled(false);
+        setIsScrolled(true);
       }
     };
 

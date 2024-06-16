@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { fetchMovies, fetchTv } from '../../api';
 import MovieCard from '../../components/MovieCard/MovieCard';
+/* import Backdrop from '../../components/Backdrop/backdrop'; */
 import { AiOutlineRight } from "react-icons/ai";
 import { useMediaQuery } from 'react-responsive';
 import './Home.css';
@@ -32,9 +33,9 @@ const Home = () => {
 
   return (
     <div className="home-div">
-      <div className='backdrop-section'>
-        <img className='backdrop-img' src={popularMovies[0] ? `https://image.tmdb.org/t/p/original/${popularMovies[0].backdrop_path}` :'https://placehold.co/500x750.png' } alt='backdrop' />
-      </div>
+      {/* {popularMovies && (
+        <Backdrop popularMovies={popularMovies} />
+      )} */}
       <div className='movie-section' >
         <div className='section-header'>
           <h2>Popular Movies</h2>

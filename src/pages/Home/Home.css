@@ -3,17 +3,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-}
-
-.backdrop-section{
-    width: 100%;
-    height: 70vh;
-    background-color: aqua;
-}
-
-.backdrop-img{
-    width: 100%;
-    height: 100%;
+    padding: 0 6.5% 0 6.5%;
 }
 
 .movie-section{
@@ -28,7 +18,6 @@
     align-items: center;
     padding: 0 0.5% 0 0.5%;
     width: 100%;
-    margin: 0 6.5% 0 6.5%;
 }
 
 .section-header h2{
