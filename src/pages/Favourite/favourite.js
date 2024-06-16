@@ -75,7 +75,7 @@ function Favourite({ userDetail }) {
                                 </tbody>
                             </table>
                         ) : (
-                            <span>No favourites found.</span>
+                            <div className="empty">No favourites found.</div>
                         )}
                     </div>
                 </div>
