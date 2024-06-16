@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useCallback } from "react";
+import { Link } from "react-router-dom";
 import { AiOutlineMore, AiFillStar } from "react-icons/ai";
 import axios from "axios";
 import './favourite.css';
@@ -59,7 +60,7 @@ function Favourite({ userDetail }) {
                                     {sortedFavLists.map((movie, index) => (
                                         <tr key={index}>
                                             <td className="rank-cell">{index + 1}</td>
-                                            <td>{movie.movieName}</td>
+                                            <td><Link className="fav-movie-link" to={`/movie/${movie.movieId}/${movie.type}`} >{movie.movieName}</Link></td>
                                             <td className="date-cell"><span>{new Date(movie.movieDate).getFullYear()}</span></td>
                                             <td className="rating-cell">
                                                 <div>

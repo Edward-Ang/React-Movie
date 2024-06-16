@@ -15,6 +15,7 @@ const MovieDetails = ({ user, toggleLoginVisible }) => {
   const [reviews, setReviews] = useState([]);
   const [video, setVideo] = useState(null);
   const [watch, setWatch] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [favCardVisible, setFavCardVisible] = useState(false);
 
   useEffect(() => {
@@ -89,25 +90,41 @@ const MovieDetails = ({ user, toggleLoginVisible }) => {
     }
   }
 
-  if (!movie) return <div>Loading...</div>;
+  if (!movie) return <div class="loader">
+    <svg height="48px" width="64px">
+      <polyline id="back" points="0.157 23.954, 14 23.954, 21.843 48, 43 0, 50 24, 64 24"></polyline>
+      <polyline id="front" points="0.157 23.954, 14 23.954, 21.843 48, 43 0, 50 24, 64 24"></polyline>
+      <polyline id="front2" points="0.157 23.954, 14 23.954, 21.843 48, 43 0, 50 24, 64 24"></polyline>
+    </svg>
+  </div>;
 
   return (
     <>
-      <FavCard userDetail={user} movie={movie} favCardVisible={favCardVisible} toggleFavCardVisible={toggleFavCardVisible} />
+      <FavCard id={id} userDetail={user} movie={movie} favCardVisible={favCardVisible} toggleFavCardVisible={toggleFavCardVisible} />
       <div className="detail-wrapper">
         <div className='detail-left'>
-          {watch &&
+          {watch && (
             <div className='detail-video'>
+              {loading &&
+                <div class="loader">
+                  <svg height="48px" width="64px">
+                    <polyline id="back" points="0.157 23.954, 14 23.954, 21.843 48, 43 0, 50 24, 64 24"></polyline>
+                    <polyline id="front" points="0.157 23.954, 14 23.954, 21.843 48, 43 0, 50 24, 64 24"></polyline>
+                    <polyline id="front2" points="0.157 23.954, 14 23.954, 21.843 48, 43 0, 50 24, 64 24"></polyline>
+                  </svg>
+                </div>
+              }
               <iframe
                 width="560"
                 height="315"
                 src={`https://www.youtube.com/embed/${video}`}
                 allowFullScreen={true}
-                title="Movie Trailer"
+                title={movie.title || movie.name}
                 className='video-iframe'
+                onLoad={() => setLoading(false)} // Set loading to false when iframe loads
               ></iframe>
             </div>
-          }
+          )}
           <div className='detail-left-top'>
             <div className='poster-container'>
               <img
@@ -119,7 +136,7 @@ const MovieDetails = ({ user, toggleLoginVisible }) => {
                 }
                 alt={movie.title || movie.name}
               />
-              <button class="fav-btn" onClick={toggleFavCardVisible} ><AiOutlineHeart className='heart-icon' /></button>
+              <button className="fav-btn" onClick={toggleFavCardVisible} ><AiOutlineHeart className='heart-icon' /></button>
             </div>
             <div className="detail-container">
               <h1>{movie.title ? movie.title : movie.name}</h1>

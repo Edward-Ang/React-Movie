@@ -4,7 +4,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
 import './FavCard.css';
 
-function FavCard({ userDetail, movie, favCardVisible, toggleFavCardVisible }) {
+function FavCard({ id, userDetail, movie, favCardVisible, toggleFavCardVisible }) {
     const user = userDetail;
     const [favrating, setFavrating] = useState('');
     const [errormsg, setErrormsg] = useState('');
@@ -34,6 +34,7 @@ function FavCard({ userDetail, movie, favCardVisible, toggleFavCardVisible }) {
         e.preventDefault();
         try {
             const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/favourite`, {
+                id,
                 movie,
                 user,
                 favrating,
@@ -64,15 +65,6 @@ function FavCard({ userDetail, movie, favCardVisible, toggleFavCardVisible }) {
                 <div className="fav-bg" onClick={handleFavCardVisible}>
                     <div className="cardContainer" id='favCardContainer' onClick={handleContainerClick}>
                         <div className="card" id='favCard'>
-                            {/*<img
-                                className='fav-poster'
-                                src={
-                                    movie.poster_path
-                                        ? `https://image.tmdb.org/t/p/w500/${movie.poster_path}`
-                                        : 'https://placehold.co/500x750.png'
-                                }
-                                alt={movie.title || movie.name}
-                            />*/}
                             <div className="fav-footer">
                                 <form className='fav-form' onSubmit={handleFav}>
                                     <div className='fav-rating'>

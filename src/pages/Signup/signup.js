@@ -69,9 +69,9 @@ function Signup({ signupVisible, toggleSignupVisible, toggleLoginVisible }) {
 			<ToastContainer />
 			{signupVisible && (
 				<div className="auth-bg" onClick={handleSignupVisible}>
-					<div class="cardContainer" onClick={handleContainerClick}>
-						<div class="card">
-							<p class="auth-title">SIGN UP</p>
+					<div className="cardContainer" onClick={handleContainerClick}>
+						<div className="card">
+							<p className="auth-title">SIGN UP</p>
 							<form className="signup-form" onSubmit={handleSignup}>
 								<input type="text" className="auth-input" name="username" onChange={(e) => setUsername(e.target.value)} placeholder="Username" required />
 								<input type="email" className="auth-input" name="email" onChange={(e) => setEmail(e.target.value)} placeholder="Email" required />
@@ -85,12 +85,12 @@ function Signup({ signupVisible, toggleSignupVisible, toggleLoginVisible }) {
 								/>
 								<button type="submit" className="login-btn">Sign Up</button>
 							</form>
-							<div class="separator">
+							<div className="separator">
 								<div></div>
 								<span>OR</span>
 								<div></div>
 							</div>
-							<button class="signin" onClick={googleAuth}>
+							<button className="signin" onClick={googleAuth}>
 								<svg
 									viewBox="0 0 256 262"
 									preserveAspectRatio="xMidYMid"

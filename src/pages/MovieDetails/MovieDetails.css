@@ -12,11 +12,64 @@
 }
 
 .detail-video {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
     width: auto;
     height: 490px;
     padding: 0 25px 0 0;
     margin-bottom: 25px;
 }
+
+.loader {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+}
+
+.loader svg polyline {
+    fill: none;
+    stroke-width: 3;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.loader svg polyline#back {
+    fill: none;
+    stroke: var(--grey-bg);
+}
+
+.loader svg polyline#front {
+    fill: none;
+    stroke: var(--blue-font);
+    stroke-dasharray: 48, 144;
+    stroke-dashoffset: 192;
+    animation: dash_682 2s linear infinite;
+    animation-delay: 0s;
+}
+
+.loader svg polyline#front2 {
+    fill: none;
+    stroke: var(--blue-font);
+    stroke-dasharray: 48, 144;
+    stroke-dashoffset: 192;
+    animation: dash_682 2s linear infinite;
+    animation-delay: 1s;
+}
+
+@keyframes dash_682 {
+    72.5% {
+        opacity: 0;
+    }
+
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+
 
 .video-iframe {
     width: 100%;
@@ -61,11 +114,11 @@
     cursor: pointer;
 }
 
-.fav-btn:hover{
+.fav-btn:hover {
     background-color: rgba(0, 0, 0, 0.7);
 }
 
-.heart-icon{
+.heart-icon {
     margin-top: 2px;
     width: 24px;
     height: 24px;
