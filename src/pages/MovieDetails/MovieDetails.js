@@ -4,6 +4,7 @@ import { fetchMovieDetails, similarMovies, fetchTvDetails, fetchMovies, fetchTv,
 import SideMovieCard from '../../components/SideMovieCard/SideMovieCard'
 import ReviewCard from '../../components/ReviewCard/ReviewCard';
 import FavCard from '../../components/FavCard/FavCard';
+import Loader from '../../components/Loader/Loader';
 import { AiOutlineHeart, AiOutlinePlayCircle, AiOutlineComment } from "react-icons/ai";
 import './MovieDetails.css';
 
@@ -90,13 +91,7 @@ const MovieDetails = ({ user, toggleLoginVisible }) => {
     }
   }
 
-  if (!movie) return <div class="loader">
-    <svg height="48px" width="64px">
-      <polyline id="back" points="0.157 23.954, 14 23.954, 21.843 48, 43 0, 50 24, 64 24"></polyline>
-      <polyline id="front" points="0.157 23.954, 14 23.954, 21.843 48, 43 0, 50 24, 64 24"></polyline>
-      <polyline id="front2" points="0.157 23.954, 14 23.954, 21.843 48, 43 0, 50 24, 64 24"></polyline>
-    </svg>
-  </div>;
+  if (!movie) return <Loader />;
 
   return (
     <>
@@ -106,13 +101,7 @@ const MovieDetails = ({ user, toggleLoginVisible }) => {
           {watch && (
             <div className='detail-video'>
               {loading &&
-                <div class="loader">
-                  <svg height="48px" width="64px">
-                    <polyline id="back" points="0.157 23.954, 14 23.954, 21.843 48, 43 0, 50 24, 64 24"></polyline>
-                    <polyline id="front" points="0.157 23.954, 14 23.954, 21.843 48, 43 0, 50 24, 64 24"></polyline>
-                    <polyline id="front2" points="0.157 23.954, 14 23.954, 21.843 48, 43 0, 50 24, 64 24"></polyline>
-                  </svg>
-                </div>
+                <Loader />
               }
               <iframe
                 width="560"
