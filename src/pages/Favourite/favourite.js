@@ -1,11 +1,43 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { Link } from "react-router-dom";
-import { AiOutlineMore, AiFillStar } from "react-icons/ai";
+import { AiOutlineMore, AiFillStar, AiOutlineEdit, AiOutlineDelete } from "react-icons/ai";
 import axios from "axios";
 import './favourite.css';
 
 function Favourite({ userDetail }) {
     const [favLists, setFavLists] = useState([]);
+    const [visibleDropdown, setVisibleDropdown] = useState(null);
+
+    const handleDropdownClick = (index) => {
+        setVisibleDropdown(visibleDropdown === index ? null : index);
+    };
+
+    const handleOutsideClick = (event) => {
+        if (!event.target.closest('.more-cell')) {
+            setVisibleDropdown(null);
+        }
+    };
+
+    const handleFavDelete = async (movieId, email) => {
+        try {
+            const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/deleteFavourite`, {
+                movieId,
+                email,
+            })
+
+            if (response.status === 200) {
+                // Call getFavourite to refresh the list from backend
+                await getFavourite(email);
+            }
+            console.log(response.data.message);
+        } catch (error) {
+            if (error.response && error.response.status === 400) {
+                console.log('Error:', error.response.data.message);
+            } else {
+                console.log('An unexpected error occurred. Please try again.');
+            }
+        }
+    }
 
     const getFavourite = useCallback(async (email) => {
         try {
@@ -28,6 +60,12 @@ function Favourite({ userDetail }) {
             console.log('useEffect triggered for user:', userDetail.email); // Debug log
             getFavourite(userDetail.email);
         }
+
+        document.addEventListener('click', handleOutsideClick);
+
+        return () => {
+            document.removeEventListener('click', handleOutsideClick);
+        };
     }, [userDetail, getFavourite]);
 
     if (!userDetail) {
@@ -64,12 +102,29 @@ function Favourite({ userDetail }) {
                                             <td className="date-cell"><span>{new Date(movie.movieDate).getFullYear()}</span></td>
                                             <td className="rating-cell">
                                                 <div>
-                                                    <span>{movie.rating.toFixed(1)}</span><AiFillStar className='fav-star' />
+                                                    <span>{movie.rating.toFixed(1)}</span>
+                                                    <AiFillStar className='fav-star' />
                                                 </div>
                                             </td>
                                             <td className="more-cell">
-                                                <button className="fav-more-btn"><AiOutlineMore /></button>
+                                                <button className="fav-more-btn" onClick={() => handleDropdownClick(index)} ><AiOutlineMore /></button>
                                             </td>
+                                            {visibleDropdown === index && (
+                                                <div className="dropdown-menu">
+                                                    <div clasName="dropdown-item">
+                                                        <button className="edit-btn">
+                                                            <AiOutlineEdit className="edit-icon" />
+                                                            Edit
+                                                        </button>
+                                                    </div>
+                                                    <div clasName="dropdown-item">
+                                                        <button className="delete-btn" onClick={() => handleFavDelete(movie.movieId, userDetail.email)}>
+                                                            <AiOutlineDelete className="delete-icon" />
+                                                            Delete
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            )}
                                         </tr>
                                     ))}
                                 </tbody>
