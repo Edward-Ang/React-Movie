@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
@@ -7,19 +7,13 @@ import './FavCard.css';
 function FavCard({ id, userDetail, movie, favCardVisible, toggleFavCardVisible }) {
     const user = userDetail;
     const [favrating, setFavrating] = useState('');
-    const [errormsg, setErrormsg] = useState('');
+    const favInputRef = useRef(null);
 
     useEffect(() => {
-        if (errormsg) {
-            toast.info(errormsg, {
-                position: 'top-center',
-                autoClose: 1500,
-                hideProgressBar: true,
-                closeButton: false
-            });
-            setErrormsg(''); // Clear the errormsg state after displaying the toast
+        if (favInputRef.current) {
+            favInputRef.current.focus();
         }
-    }, [errormsg]);
+    }, [favCardVisible]);
 
     const handleFavCardVisible = () => {
         toggleFavCardVisible();
@@ -50,10 +44,20 @@ function FavCard({ id, userDetail, movie, favCardVisible, toggleFavCardVisible }
         } catch (error) {
             if (error.response && error.response.status === 400) {
                 console.log(error.response.data.message);
-                setErrormsg(error.response.data.message);
+                toast.info('Already exists in favourites', {
+                    position: 'top-center',
+                    autoClose: 1500,
+                    hideProgressBar: true,
+                    closeButton: false
+                });
             } else {
                 console.log('An unexpected error occurred. Please try again.');
-                setErrormsg(error.response.data.message);
+                toast.error('Internal server error', {
+                    position: 'top-center',
+                    autoClose: 1500,
+                    hideProgressBar: true,
+                    closeButton: false
+                });
             }
         }
     }
@@ -73,6 +77,7 @@ function FavCard({ id, userDetail, movie, favCardVisible, toggleFavCardVisible }
                                             type='number' name='favrating'
                                             step={0.1} max={10} min={0} placeholder='0.0'
                                             onChange={(e) => { setFavrating(e.target.value) }}
+                                            ref={favInputRef}
                                             required
                                         />
                                         <span>/10</span>
