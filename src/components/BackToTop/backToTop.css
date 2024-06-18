@@ -61,3 +61,10 @@
         opacity: 1;
     }
 }
+
+@media (max-width: 480px) {
+    .Btn{
+        bottom: 23%;
+        right: 0;
+    }
+}

@@ -6,6 +6,7 @@ import MovieCard from '../../components/MovieCard/MovieCard';
 import { AiOutlineRight } from "react-icons/ai";
 import { useMediaQuery } from 'react-responsive';
 import './Home.css';
+import './HomeMedia.css';
 
 const Home = () => {
   const [popularMovies, setPopularMovies] = useState([]);
@@ -13,6 +14,7 @@ const Home = () => {
   const [tvShows, setTvShows] = useState([]);
   const [topRatedTvShows, setTopRatedTvShows] = useState([]);
   const break1275 = useMediaQuery({ maxWidth: 1275 });
+  const break480 = useMediaQuery({ maxWidth: 480});
 
   useEffect(() => {
     const fetchAllMovies = async () => {

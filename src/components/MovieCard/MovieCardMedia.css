@@ -1,0 +1,9 @@
+@media (max-width: 480px) {
+    .movie-card {
+        width: 90%;
+    }
+
+    .movie-card img {
+        width: 100%;
+    }
+}

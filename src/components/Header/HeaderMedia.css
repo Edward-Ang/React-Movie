@@ -1,0 +1,74 @@
+@media (max-width: 480px) {
+    Header{
+        padding: 0% 3% 0% 3%;
+    }
+
+    .header-logo{
+        margin-right: 5%;
+    }
+
+    .logo{
+        width: 36px;
+        height: 36px;
+    }
+
+    .name{
+        font-size: 20px;
+    }
+
+    .search-button{
+        padding: 0 10px;
+    }
+
+    .search-bar{
+        padding: 10%;
+        padding-right: 50px;
+        font-size: 14px;
+    }
+
+    .utility-btn{
+        margin-left: 3%;
+    }
+
+    #header-dropdown-menu{
+        width: 50%;
+        padding: 0;
+    }
+
+    #header-dropdown-item{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0;
+    }
+
+    #profile-btn, #favourite-btn, #notification-btn{
+        width: 100%;
+        border-radius: 0;
+        text-align: left;
+        color: var(--light-font);
+        margin: 0;
+        font-size: 14px;
+        display: flex;
+        justify-content: left;
+        align-items: center;
+        padding: 6%;
+    }
+
+    .btn-container{
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .btn-container span{
+        margin-left: 7%;
+    }
+
+    #heart-icon, #user-icon, #bell-icon{
+        width: 18px;
+        height: 18px;
+    }
+}
