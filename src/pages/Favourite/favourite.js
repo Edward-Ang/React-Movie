@@ -1,15 +1,18 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { AiOutlineMore, AiFillStar, AiOutlineEdit, AiOutlineDelete } from "react-icons/ai";
+import { useMediaQuery } from "react-responsive";
 import RatingCard from "../../components/RatingCard/RatingCard";
 import axios from "axios";
 import './favourite.css';
+import './favouriteMedia.css';
 
 function Favourite({ userDetail }) {
     const [favLists, setFavLists] = useState([]);
     const [visibleDropdown, setVisibleDropdown] = useState(null);
     const [ratingCardVisible, setRatingCardVisible] = useState(false);
     const [targetMovie, setTargetMovie] = useState('');
+    const break480 = useMediaQuery({ maxWidth: 480 });
 
     const handleDropdownClick = (index) => {
         setVisibleDropdown(visibleDropdown === index ? null : index);
@@ -127,8 +130,10 @@ function Favourite({ userDetail }) {
                                 <thead>
                                     <tr>
                                         <th className="rank-col">#</th>
-                                        <th>Movie</th>
-                                        <th className="date-col">Release</th>
+                                        <th className="name-col"> Movie</th>
+                                        {!break480 && (
+                                            <th className="date-col">Release</th>
+                                        )}
                                         <th className="rating-col">Rating</th>
                                         <th className="more-col"></th>
                                     </tr>
@@ -137,8 +142,10 @@ function Favourite({ userDetail }) {
                                     {sortedFavLists.map((movie, index) => (
                                         <tr key={index}>
                                             <td className="rank-cell">{index + 1}</td>
-                                            <td><Link className="fav-movie-link" to={`/movie/${movie.movieId}/${movie.type}`} >{movie.movieName}</Link></td>
-                                            <td className="date-cell"><span>{new Date(movie.movieDate).getFullYear()}</span></td>
+                                            <td clasName="name-cell"><Link className="fav-movie-link" to={`/movie/${movie.movieId}/${movie.type}`} >{movie.movieName}</Link></td>
+                                            {!break480 && (
+                                                <td className="date-cell"><span>{new Date(movie.movieDate).getFullYear()}</span></td>
+                                            )}
                                             <td className="rating-cell">
                                                 <div>
                                                     <span>{movie.rating ? movie.rating.toFixed(1) : ''}</span>

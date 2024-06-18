@@ -1,17 +1,16 @@
-// src/components/Header.js
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { AiOutlineHeart, AiOutlineUser, AiOutlineBell, AiOutlineSearch, AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
 import { useMediaQuery } from 'react-responsive';
 import './Header.css';
-import './HeaderMedia.css'
+import './HeaderMedia.css';
 
 const Header = ({ userDetails, toggleProfileVisible, toggleLoginVisible }) => {
   const user = userDetails.user;
   const [query, setQuery] = useState('');
   const navigate = useNavigate();
   const [isScrolled, setIsScrolled] = useState(true);
-  const [visibleDropdown, setVisibleDropdown] = useState(null);
+  const [visibleDropdown, setVisibleDropdown] = useState(false);
   const mobileWidth = useMediaQuery({ maxWidth: 480 });
 
   useEffect(() => {
@@ -31,6 +30,24 @@ const Header = ({ userDetails, toggleProfileVisible, toggleLoginVisible }) => {
     };
   }, []);
 
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setVisibleDropdown(false);
+      }
+    };
+
+    // Bind the event listener
+    document.addEventListener('mousedown', handleClickOutside);
+
+    // Cleanup the event listener on component unmount
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
+  const dropdownRef = useRef(null);
+
   const handleDropdownClick = () => {
     setVisibleDropdown(!visibleDropdown);
   };
@@ -43,11 +60,13 @@ const Header = ({ userDetails, toggleProfileVisible, toggleLoginVisible }) => {
 
   const handleProfile = async () => {
     toggleProfileVisible();
+    setVisibleDropdown(false);
   };
 
   const handleLogin = () => {
     toggleLoginVisible();
-  }
+    setVisibleDropdown(false);
+  };
 
   const handleFav = () => {
     if (user) {
@@ -55,7 +74,8 @@ const Header = ({ userDetails, toggleProfileVisible, toggleLoginVisible }) => {
     } else {
       toggleLoginVisible();
     }
-  }
+    setVisibleDropdown(false);
+  };
 
   return (
     <header className={`header ${isScrolled ? 'colored' : 'transparent'}`}>
@@ -82,34 +102,33 @@ const Header = ({ userDetails, toggleProfileVisible, toggleLoginVisible }) => {
             {visibleDropdown ? (<AiOutlineClose className='utility-icon' />) : (<AiOutlineMenu className='utility-icon' />)}
           </button>
           {visibleDropdown && (
-            <div className="dropdown-menu" id='header-dropdown-menu'>
-              <div clasName="dropdown-item" id='header-dropdown-item'>
-                {user ? (
-                  <img
-                    className='profile-pic'
-                    src={user.picture || '/images/fox-avatar.png'}
-                    alt={user.name}
-                    title={user.name}
-                    onClick={handleProfile}
-                  />) : (
-                  <button className='utility-btn' id='profile-btn' onClick={handleLogin}>
-                    <div className='btn-container'>
-                      <span>Profile</span>
+            <div className="dropdown-menu" id='header-dropdown-menu' ref={dropdownRef}>
+              <div className="dropdown-item" id='header-dropdown-item'>
+                <button className='utility-btn' id='profile-btn' onClick={user ? handleProfile : handleLogin}>
+                  <div className='btn-container'>
+                    <span>Profile</span>
+                    {user ? (
+                      <img
+                        className='profile-pic'
+                        src={user.picture || '/images/fox-avatar.png'}
+                        alt={user.name}
+                        title={user.name}
+                      />) : (
                       <AiOutlineUser className='utility-icon' id='user-icon' />
-                    </div>
-                  </button>
-                )}
+                    )}
+                  </div>
+                </button>
               </div>
-              <div clasName="dropdown-item" id='header-dropdown-item'>
-                <button className='utility-btn' id='favourite-btn' onClick={handleFav} >
+              <div className="dropdown-item" id='header-dropdown-item'>
+                <button className='utility-btn' id='favourite-btn' onClick={handleFav}>
                   <div className='btn-container'>
                     <span>Favourite</span>
                     <AiOutlineHeart className='utility-icon' id='heart-icon' />
                   </div>
                 </button>
               </div>
-              <div clasName="dropdown-item" id='header-dropdown-item'>
-                <button className='utility-btn' id='notification-btn' >
+              <div className="dropdown-item" id='header-dropdown-item'>
+                <button className='utility-btn' id='notification-btn'>
                   <div className='btn-container'>
                     <span>Notification</span>
                     <AiOutlineBell className='utility-icon' id='bell-icon' />
@@ -121,7 +140,7 @@ const Header = ({ userDetails, toggleProfileVisible, toggleLoginVisible }) => {
         </>
       ) : (
         <div className='utility'>
-          <button className='utility-btn' onClick={handleFav} ><AiOutlineHeart className='utility-icon' /></button>
+          <button className='utility-btn' onClick={handleFav}><AiOutlineHeart className='utility-icon' /></button>
           <button className='utility-btn'><AiOutlineBell className='utility-icon' /></button>
           {user ? (
             <img
@@ -135,7 +154,7 @@ const Header = ({ userDetails, toggleProfileVisible, toggleLoginVisible }) => {
           )}
         </div>
       )}
-    </header >
+    </header>
   );
 };
 

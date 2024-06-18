@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useMediaQuery } from 'react-responsive';
 import "./ReviewCard.css";
 
 const ReviewCard = (props) => {
@@ -8,14 +9,16 @@ const ReviewCard = (props) => {
         : "/images/fox-avatar.png";
     const [showFullContent, setShowFullContent] = useState(false);
     const formattedDate = new Date(created_at).toLocaleDateString();
-    const maxLength = 350; // Set the maximum length of the content to display initially
+    const break480 = useMediaQuery({ maxWidth: 480});
+    const desktopMaxLength = 350;
+    const mobileMaxLength = 220;
 
     const toggleContent = () => {
         setShowFullContent(!showFullContent);
     };
 
-    const truncatedContent = content.slice(0, maxLength);
-    const remainingContent = content.slice(maxLength);
+    const truncatedContent = content.slice(0, break480 ? mobileMaxLength : desktopMaxLength);
+    const remainingContent = content.slice(break480 ? mobileMaxLength : desktopMaxLength);
 
     return (
         <div className="review-card">
