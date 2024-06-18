@@ -4,6 +4,7 @@ Header {
     align-items: center;
     background: var(--header-bg);
     padding: 0% 6.5% 0% 6.5%;
+    width: auto;
     height: 63px;
     position: sticky;
     top: 0;
