@@ -14,7 +14,6 @@ const Home = () => {
   const [tvShows, setTvShows] = useState([]);
   const [topRatedTvShows, setTopRatedTvShows] = useState([]);
   const break1275 = useMediaQuery({ maxWidth: 1275 });
-  const break480 = useMediaQuery({ maxWidth: 480});
 
   useEffect(() => {
     const fetchAllMovies = async () => {

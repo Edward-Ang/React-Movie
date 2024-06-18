@@ -17,11 +17,13 @@
     align-items: center;
     justify-content: center;
     z-index: 1;
+    margin: 0 5%;
 }
 
 .card {
     position: relative;
     width: 280px;
+    min-width: 200px;
     height: fit-content;
     display: flex;
     flex-direction: column;
@@ -33,7 +35,6 @@
     background-color: var(--glassy-bg);
     border: 1px solid rgba(255, 255, 255, 0.089);
     cursor: pointer;
-    margin: 0 5%;
 }
 
 .auth-title {

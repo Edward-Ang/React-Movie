@@ -1,0 +1,26 @@
+@media (max-width: 480px) {
+    .favourite-div {
+        padding: 0 3%;
+    }
+
+    .rank-col,
+    .more-col {
+        width: 3%;
+    }
+
+    .name-col {
+        width: 80%;
+    }
+
+    .rating-col {
+        width: 14%;
+        text-align: center;
+    }
+
+    .more-cell {
+        display: flex;
+        justify-content: center;
+        align-content: center;
+        padding: 8px 0;
+    }
+}

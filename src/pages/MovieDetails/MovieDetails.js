@@ -7,6 +7,7 @@ import FavCard from '../../components/FavCard/FavCard';
 import Loader from '../../components/Loader/Loader';
 import { AiOutlineHeart, AiOutlinePlayCircle, AiOutlineComment } from "react-icons/ai";
 import './MovieDetails.css';
+import './MovieDetailsMedia.css';
 
 const MovieDetails = ({ user, toggleLoginVisible }) => {
   const { obj, id } = useParams();
@@ -99,20 +100,18 @@ const MovieDetails = ({ user, toggleLoginVisible }) => {
       <div className="detail-wrapper">
         <div className='detail-left'>
           {watch && (
-            <div className='detail-video'>
-              {loading &&
-                <Loader />
-              }
-              <iframe
-                width="560"
-                height="315"
-                src={`https://www.youtube.com/embed/${video}`}
-                allowFullScreen={true}
-                title={movie.title || movie.name}
-                className='video-iframe'
-                onLoad={() => setLoading(false)} // Set loading to false when iframe loads
-              ></iframe>
-            </div>
+              <div className='detail-video'>
+                {loading &&
+                  <Loader />
+                }
+                <iframe
+                  src={`https://www.youtube.com/embed/${video}`}
+                  allowFullScreen
+                  title={movie.title || movie.name}
+                  className='video-iframe'
+                  onLoad={() => setLoading(false)}
+                ></iframe>
+              </div>
           )}
           <div className='detail-left-top'>
             <div className='poster-container'>
