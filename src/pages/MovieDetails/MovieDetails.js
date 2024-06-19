@@ -6,6 +6,7 @@ import ReviewCard from '../../components/ReviewCard/ReviewCard';
 import FavCard from '../../components/FavCard/FavCard';
 import Loader from '../../components/Loader/Loader';
 import { AiOutlineHeart, AiOutlinePlayCircle, AiOutlineComment } from "react-icons/ai";
+import { useMediaQuery } from 'react-responsive';
 import './MovieDetails.css';
 import './MovieDetailsMedia.css';
 
@@ -19,6 +20,7 @@ const MovieDetails = ({ user, toggleLoginVisible }) => {
   const [watch, setWatch] = useState(false);
   const [loading, setLoading] = useState(true);
   const [favCardVisible, setFavCardVisible] = useState(false);
+  const mobileWidth = useMediaQuery({ maxWidth: 480 });
 
   useEffect(() => {
     const fetchVideo = async () => {
@@ -135,8 +137,8 @@ const MovieDetails = ({ user, toggleLoginVisible }) => {
                 <span className="movie-detail-rating">{movie.vote_average ? movie.vote_average.toFixed(1) : 'N/A'}</span>
               </div>
               <div className='genres'>
-                {genre.slice(0, 3).map((genreName, index) => (
-                  <span key={index} className='genre-item'>{genreName}</span>
+                {genre.slice(0, mobileWidth ? 2 : 3).map((genreName, index) => (
+                  <span key={index} className='genre-item'>{genreName === 'Science Fiction' ? 'Sci-Fi' : genreName}</span>
                 ))}
               </div>
               {video &&
