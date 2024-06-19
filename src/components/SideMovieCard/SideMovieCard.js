@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { AiFillStar } from "react-icons/ai";
 import { genreList } from '../GenreLists';
 import './SideMovieCard.css';
+import './SideMovieCardMedia.css';
 
 const SideMovieCard = ({ movie, id }) => {
     const [genres, setGenres] = useState([]);

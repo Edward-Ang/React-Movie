@@ -102,18 +102,18 @@ const MovieDetails = ({ user, toggleLoginVisible }) => {
       <div className="detail-wrapper">
         <div className='detail-left'>
           {watch && (
-              <div className='detail-video'>
-                {loading &&
-                  <Loader />
-                }
-                <iframe
-                  src={`https://www.youtube.com/embed/${video}`}
-                  allowFullScreen
-                  title={movie.title || movie.name}
-                  className='video-iframe'
-                  onLoad={() => setLoading(false)}
-                ></iframe>
-              </div>
+            <div className='detail-video'>
+              {loading &&
+                <Loader />
+              }
+              <iframe
+                src={`https://www.youtube.com/embed/${video}`}
+                allowFullScreen
+                title={movie.title || movie.name}
+                className='video-iframe'
+                onLoad={() => setLoading(false)}
+              ></iframe>
+            </div>
           )}
           <div className='detail-left-top'>
             <div className='poster-container'>

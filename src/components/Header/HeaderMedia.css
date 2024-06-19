@@ -1,41 +1,41 @@
 @media (max-width: 480px) {
-    Header{
+    Header {
         padding: 0% 3% 0% 3%;
     }
 
-    .header-logo{
+    .header-logo {
         margin-right: 5%;
     }
 
-    .logo{
+    .logo {
         width: 36px;
         height: 36px;
     }
 
-    .name{
+    .name {
         font-size: 20px;
     }
 
-    .search-button{
+    .search-button {
         padding: 0 10px;
     }
 
-    .search-bar{
+    .search-bar {
         padding: 10%;
         padding-right: 50px;
         font-size: 14px;
     }
 
-    .utility-btn{
+    .utility-btn {
         margin-left: 3%;
     }
 
-    #header-dropdown-menu{
+    #header-dropdown-menu {
         width: 50%;
         padding: 0;
     }
 
-    #header-dropdown-item{
+    #header-dropdown-item {
         width: 100%;
         display: flex;
         justify-content: center;
@@ -43,7 +43,9 @@
         margin: 0;
     }
 
-    #profile-btn, #favourite-btn, #notification-btn{
+    #profile-btn,
+    #favourite-btn,
+    #notification-btn {
         width: 100%;
         border-radius: 0;
         text-align: left;
@@ -56,19 +58,59 @@
         padding: 6%;
     }
 
-    .btn-container{
+    .btn-container {
         width: 100%;
         display: flex;
         justify-content: space-between;
         align-items: center;
     }
 
-    .btn-container span{
+    .btn-container span {
         margin-left: 7%;
     }
 
-    #heart-icon, #user-icon, #bell-icon{
+    #heart-icon,
+    #user-icon,
+    #bell-icon {
         width: 18px;
         height: 18px;
+    }
+}
+
+@media (min-width: 481px) and (max-width: 768px) {
+    Header {
+        padding: 0% 3% 0% 3%;
+    }
+
+    .header-logo {
+        margin-right: 3%;
+    }
+
+    .logo {
+        width: 36px;
+        height: 36px;
+    }
+
+    .name {
+        font-size: 20px;
+    }
+
+    .search-button {
+        padding: 0 10px;
+    }
+
+    .search-bar {
+        padding: 10%;
+        padding-right: 50px;
+        font-size: 14px;
+    }
+
+    .utility-btn {
+        margin-left: 3%;
+    }
+
+    .profile-pic{
+        margin-left: 3%;
+        margin-right: 0;
     }
 }

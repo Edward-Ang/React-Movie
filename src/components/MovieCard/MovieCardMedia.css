@@ -7,3 +7,13 @@
         width: 100%;
     }
 }
+
+@media (min-width: 481px) and (max-width: 768px) {
+    .movie-card {
+        width: 90%;
+    }
+
+    .movie-card img {
+        width: 100%;
+    }
+}
