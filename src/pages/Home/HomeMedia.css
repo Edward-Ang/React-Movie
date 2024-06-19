@@ -13,3 +13,19 @@
         width: 100%;
     }
 }
+
+@media (min-width: 481px) and (max-width: 768px) {
+    .home-div {
+        padding: 0 3%;
+    }
+
+    .section-header h2 {
+        margin: 5% 0;
+    }
+
+    .movie-list {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 12px;
+        width: 100%;
+    }
+}

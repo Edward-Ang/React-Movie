@@ -1,0 +1,25 @@
+@media (min-width: 481px) and (max-width: 768px) {
+    .similar-container {
+        width: 100%;
+        height: fit-content;
+    }
+
+    .similar-detail {
+        width: 100%;
+        height: 175px;
+    }
+
+    #similar-genres {
+        padding: 0 5px 0 5px;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 15px;
+        width: fit-content;
+    }
+
+    #similar-genre-item {
+        font-size: 12px;
+        padding: 2% 5%;
+        width: 100%;
+    }
+}
