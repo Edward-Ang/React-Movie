@@ -11,7 +11,7 @@ const ReviewCard = (props) => {
     const formattedDate = new Date(created_at).toLocaleDateString();
     const break480 = useMediaQuery({ maxWidth: 480});
     const desktopMaxLength = 350;
-    const mobileMaxLength = 220;
+    const mobileMaxLength = 150;
 
     const toggleContent = () => {
         setShowFullContent(!showFullContent);
