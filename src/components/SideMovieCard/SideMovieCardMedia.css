@@ -23,3 +23,19 @@
         width: 100%;
     }
 }
+
+@media (min-width: 769px) and (max-width: 900px) {
+    .similar-container {
+        width: 90%;
+        height: 175px;
+    }
+
+    .similar-detail {
+        width: 50%;
+        height: 100%;
+    }
+}
+
+@media (min-width: 901px) and (max-width: 1152px) {
+
+}
