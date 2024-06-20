@@ -114,3 +114,15 @@
         margin-right: 0;
     }
 }
+
+@media (min-width: 769px) and (max-width: 900px) {
+    Header {
+        padding: 0% 3.5%;
+    }
+}
+
+@media (min-width: 901px) and (max-width: 1152px) {
+    Header {
+        padding: 0% 3.5%;
+    }
+}

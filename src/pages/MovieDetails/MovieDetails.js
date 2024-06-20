@@ -169,9 +169,11 @@ const MovieDetails = ({ user, toggleLoginVisible }) => {
         </div>
         <div className="detail-right">
           <h2>You May Also Like</h2>
-          {recommend.map(movie => (
-            <SideMovieCard key={movie.id} movie={movie} id={id} />
-          ))}
+          <div className="side-movie-container">
+            {recommend.map(movie => (
+              <SideMovieCard key={movie.id} movie={movie} id={id} />
+            ))}
+          </div>
         </div>
       </div>
     </>

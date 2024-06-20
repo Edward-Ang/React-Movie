@@ -179,3 +179,78 @@
         margin-bottom: 15px;
     }
 }
+
+@media (min-width: 769px) and (max-width: 900px) {
+    .detail-wrapper {
+        display: flex;
+        flex-direction: column;
+        padding: 3% 3%;
+    }
+
+    .detail-video {
+        position: relative;
+        width: 100%;
+        height: 50vh;
+        padding: 0;
+        margin-bottom: 15px;
+    }
+
+    .detail-left {
+        width: 100%;
+    }
+
+    .detail-left-top {
+        height: 400px;
+    }
+
+    .poster-container {
+        width: 35%;
+    }
+
+    .detail-container {
+        width: 65%;
+        padding: 0 0% 0 3%;
+    }
+
+    .detail-right {
+        width: 100%;
+        height: fit-content;
+    }
+
+    .detail-right h2 {
+        margin-bottom: 15px;
+    }
+
+    .side-movie-container{
+        display: grid;
+        grid-template-columns: repeat(2, 2fr);
+        width: 100%;
+    }
+
+    .review-section {
+        padding: 15px 0;
+    }
+
+    .review-section h2 {
+        margin-bottom: 15px;
+    }
+}
+
+@media (min-width: 901px) and (max-width: 1152px) {
+    .detail-wrapper {
+        padding: 3% 3%;
+    }
+
+    .poster-container {
+        width: 35%;
+    }
+
+    .detail-container {
+        width: 65%;
+        padding: 0 3%;
+    }
+
+    .detail-video {
+        height: 55vh;
+    }
+}

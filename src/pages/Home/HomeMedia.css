@@ -29,3 +29,35 @@
         width: 100%;
     }
 }
+
+@media (min-width: 769px) and (max-width: 900px) {
+    .home-div {
+        padding: 0 3.5%;
+    }
+
+    .movie-list {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 12px;
+        width: 100%;
+    }
+
+    .section-header h2 {
+        margin: 3% 0;
+    }
+}
+
+@media (min-width: 901px) and (max-width: 1152px) {
+    .home-div {
+        padding: 0 3.5%;
+    }
+
+    .movie-list {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 12px;
+        width: 100%;
+    }
+
+    .section-header h2 {
+        margin: 3% 0;
+    }
+}

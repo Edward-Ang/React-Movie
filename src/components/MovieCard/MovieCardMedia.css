@@ -17,3 +17,23 @@
         width: 100%;
     }
 }
+
+@media (min-width: 769px) and (max-width: 900px) {
+    .movie-card {
+        width: 90%;
+    }
+
+    .movie-card img {
+        width: 100%;
+    }
+}
+
+@media (min-width: 901px) and (max-width: 1152px) {
+    .movie-card {
+        width: 90%;
+    }
+    
+    .movie-card img {
+        width: 100%;
+    }
+}
