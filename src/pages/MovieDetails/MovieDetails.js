@@ -5,10 +5,11 @@ import SideMovieCard from '../../components/SideMovieCard/SideMovieCard'
 import ReviewCard from '../../components/ReviewCard/ReviewCard';
 import FavCard from '../../components/FavCard/FavCard';
 import Loader from '../../components/Loader/Loader';
-import { AiOutlineHeart, AiOutlinePlayCircle, AiOutlineComment } from "react-icons/ai";
+import { AiOutlineHeart, AiOutlinePlayCircle, AiOutlineComment, AiFillHeart } from "react-icons/ai";
 import { useMediaQuery } from 'react-responsive';
 import './MovieDetails.css';
 import './MovieDetailsMedia.css';
+import axios from 'axios';
 
 const MovieDetails = ({ user, toggleLoginVisible }) => {
   const { obj, id } = useParams();
@@ -20,6 +21,7 @@ const MovieDetails = ({ user, toggleLoginVisible }) => {
   const [watch, setWatch] = useState(false);
   const [loading, setLoading] = useState(true);
   const [favCardVisible, setFavCardVisible] = useState(false);
+  const [faved, setFaved] = useState(false);
   const mobileWidth = useMediaQuery({ maxWidth: 480 });
 
   useEffect(() => {
@@ -43,6 +45,9 @@ const MovieDetails = ({ user, toggleLoginVisible }) => {
           setMovie(movieDetails);
           setRecommend(recommendedMovies.length !== 0 ? recommendedMovies : await fetchMovies('popular'));
           setGenre(movieDetails.genres ? movieDetails.genres.map(genre => genre.name) : []);
+          if (user && user.email) {
+            checkFavourite(movieDetails.id, user.email); // Ensure movieDetails.id is used instead of movie.movieId
+          }
         } else {
           const [tvDetails, recommendedTv] = await Promise.all([
             fetchTvDetails(obj),
@@ -51,6 +56,9 @@ const MovieDetails = ({ user, toggleLoginVisible }) => {
           setMovie(tvDetails);
           setRecommend(recommendedTv.length !== 0 ? recommendedTv : await fetchTv('popular'));
           setGenre(tvDetails.genres ? tvDetails.genres.map(genre => genre.name) : []);
+          if (user && user.email) {
+            checkFavourite(tvDetails.id, user.email); // Ensure tvDetails.id is used instead of movie.movieId
+          }
         }
         window.scrollTo({ top: 0, behavior: 'smooth' });
       } catch (movieError) {
@@ -68,15 +76,36 @@ const MovieDetails = ({ user, toggleLoginVisible }) => {
       }
     };
 
-    const resetVideo = async () => {
+    const resetVideo = () => {
       setWatch(false);
-    }
+    };
+
+    const checkFavourite = async (movieId, email) => {
+      try {
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/checkFavourite`, {
+          params: { movieId, email }
+        });
+        console.log('Fetched data:', response.data.exists);
+        setFaved(response.data.exists);
+      } catch (error) {
+        if (error.response) {
+          // Server responded with a status other than 200 range
+          console.error('Server Error:', error.response.data.message || error.response.data);
+        } else if (error.request) {
+          // Request was made but no response was received
+          console.error('No Response Received:', error.request);
+        } else {
+          // Something happened in setting up the request
+          console.error('Request Error:', error.message);
+        }
+      }
+    };
 
     fetchVideo();
     fetchDetails();
     fetchMovieReviews();
-    resetVideo(false);
-  }, [obj, id]);
+    resetVideo();
+  }, [obj, id, user]);
 
   const handleWatch = () => {
     setWatch(true);
@@ -98,7 +127,9 @@ const MovieDetails = ({ user, toggleLoginVisible }) => {
 
   return (
     <>
-      <FavCard id={id} userDetail={user} movie={movie} favCardVisible={favCardVisible} toggleFavCardVisible={toggleFavCardVisible} />
+      {!faved && (
+        <FavCard id={id} userDetail={user} movie={movie} favCardVisible={favCardVisible} toggleFavCardVisible={toggleFavCardVisible} />
+      )}
       <div className="detail-wrapper">
         <div className='detail-left'>
           {watch && (
@@ -126,7 +157,13 @@ const MovieDetails = ({ user, toggleLoginVisible }) => {
                 }
                 alt={movie.title || movie.name}
               />
-              <button className="fav-btn" onClick={toggleFavCardVisible} ><AiOutlineHeart className='heart-icon' /></button>
+              <button className="fav-btn" onClick={toggleFavCardVisible} >
+                {faved ? (
+                  <AiFillHeart className='heart-icon' />
+                ) : (
+                  <AiOutlineHeart className='heart-icon' />
+                )}
+              </button>
             </div>
             <div className="detail-container">
               <h1>{movie.title ? movie.title : movie.name}</h1>

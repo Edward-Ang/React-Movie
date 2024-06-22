@@ -33,7 +33,7 @@ export const searchMovies = async (query) => {
   return response.data.results;
 };
 
-export const similarMovies = async ( type, id) => {
+export const similarMovies = async (type, id) => {
   const response = await axios.get(`${BASE_URL}/${type}/${id}/similar?api_key=${API_KEY}`);
   return response.data.results;
 }
@@ -41,4 +41,11 @@ export const similarMovies = async ( type, id) => {
 export const fetchVideos = async (type, id) => {
   const response = await axios.get(`${BASE_URL}/${type}/${id}/videos?api_key=${API_KEY}`);
   return response.data.results;
+}
+
+export const fetchFavs = async (email) => {
+  const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/getFavourite`, {
+    params: { userEmail: email }
+  });
+  return response.data.favLists;
 }
