@@ -2,6 +2,7 @@ import React, { useEffect, useState, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { AiOutlineMore, AiFillStar, AiOutlineEdit, AiOutlineDelete } from "react-icons/ai";
 import { useMediaQuery } from "react-responsive";
+import { fetchFavs } from "../../api";
 import RatingCard from "../../components/RatingCard/RatingCard";
 import axios from "axios";
 import './favourite.css';
@@ -80,11 +81,9 @@ function Favourite({ userDetail }) {
 
     const getFavourite = useCallback(async (email) => {
         try {
-            const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/getFavourite`, {
-                params: { userEmail: email }
-            });
-            console.log('Fetched data:', response.data.favLists);
-            setFavLists(response.data.favLists);
+            const fetchedLists = await fetchFavs(email);
+            console.log('Fetched data:', fetchedLists);
+            setFavLists(fetchedLists);
         } catch (error) {
             if (error.response && error.response.status === 400) {
                 console.log('Error:', error.response.data.message);

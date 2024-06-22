@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { fetchMovieDetails, similarMovies, fetchTvDetails, fetchMovies, fetchTv, fetchReviews, fetchVideos } from '../../api';
+import { fetchMovieDetails, similarMovies, fetchTvDetails, fetchMovies, fetchTv, fetchReviews, fetchVideos, fetchFavs } from '../../api';
 import SideMovieCard from '../../components/SideMovieCard/SideMovieCard'
 import ReviewCard from '../../components/ReviewCard/ReviewCard';
 import FavCard from '../../components/FavCard/FavCard';
@@ -20,6 +20,8 @@ const MovieDetails = ({ user, toggleLoginVisible }) => {
   const [watch, setWatch] = useState(false);
   const [loading, setLoading] = useState(true);
   const [favCardVisible, setFavCardVisible] = useState(false);
+  const userEmail = user.email;
+  const [faved, setFaved] = useState(null);
   const mobileWidth = useMediaQuery({ maxWidth: 480 });
 
   useEffect(() => {
@@ -72,11 +74,26 @@ const MovieDetails = ({ user, toggleLoginVisible }) => {
       setWatch(false);
     }
 
+    const getFavourite = async (email) => {
+      try {
+        const fetchedLists = await fetchFavs(email);
+        console.log('Fetched data:', fetchedLists);
+        setFaved(fetchedLists);
+      } catch (error) {
+        if (error.response && error.response.status === 400) {
+          console.log('Error:', error.response.data.message);
+        } else {
+          console.log('An unexpected error occurred. Please try again.');
+        }
+      }
+    }
+
     fetchVideo();
     fetchDetails();
     fetchMovieReviews();
     resetVideo(false);
-  }, [obj, id]);
+    getFavourite(userEmail);
+  }, [obj, id, userEmail]);
 
   const handleWatch = () => {
     setWatch(true);
