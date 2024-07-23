@@ -17,11 +17,12 @@ const MovieDetails = ({ user, toggleLoginVisible }) => {
   const [recommend, setRecommend] = useState([]);
   const [genre, setGenre] = useState([]);
   const [reviews, setReviews] = useState([]);
-  const [video, setVideo] = useState(null);
+  const [trailer, setTrailer] = useState(null);
   const [watch, setWatch] = useState(false);
   const [loading, setLoading] = useState(true);
   const [favCardVisible, setFavCardVisible] = useState(false);
   const [faved, setFaved] = useState(false);
+  const [embedUrl, setEmbedUrl] = useState('');
   const mobileWidth = useMediaQuery({ maxWidth: 480 });
 
   useEffect(() => {
@@ -29,9 +30,9 @@ const MovieDetails = ({ user, toggleLoginVisible }) => {
       try {
         const videos = await fetchVideos(id, obj);
         const trailer = videos.find(video => (video.type === "Trailer" || video.type === "Opening Credits") && video.site === "YouTube");
-        setVideo(trailer ? trailer.key : null);
+        setTrailer(trailer ? trailer.key : null);
       } catch {
-        setVideo(null);
+        setTrailer(null);
       }
     };
 
@@ -101,10 +102,26 @@ const MovieDetails = ({ user, toggleLoginVisible }) => {
       }
     };
 
+    const checkUrl = async () => {
+      const url = `https://vidsrc.pro/embed/movie/${obj}`;
+      try {
+        const response = await fetch(url);
+        if (response.status === 404) {
+          console.log('cant fetch video 404');
+        } else {
+          console.log(response.status);
+          setEmbedUrl(url);
+        }
+      } catch (error) {
+        console.error('Error fetching the URL:', error);
+      }
+    };
+
     fetchVideo();
     fetchDetails();
     fetchMovieReviews();
     resetVideo();
+    checkUrl();
   }, [obj, id, user]);
 
   const handleWatch = () => {
@@ -137,13 +154,23 @@ const MovieDetails = ({ user, toggleLoginVisible }) => {
               {loading &&
                 <Loader />
               }
-              <iframe
-                src={`https://www.youtube.com/embed/${video}`}
-                allowFullScreen
-                title={movie.title || movie.name}
-                className='video-iframe'
-                onLoad={() => setLoading(false)}
-              ></iframe>
+              {embedUrl !== '' ? (
+                <iframe
+                  src={embedUrl}
+                  allowFullScreen
+                  title={movie.title || movie.name}
+                  className='video-iframe'
+                  onLoad={() => setLoading(false)}
+                ></iframe>
+              ) : (
+                <iframe
+                  src={`https://www.youtube.com/embed/${trailer}`}
+                  allowFullScreen
+                  title={movie.title || movie.name}
+                  className='video-iframe'
+                  onLoad={() => setLoading(false)}
+                ></iframe>
+              )}
             </div>
           )}
           <div className='detail-left-top'>
@@ -178,10 +205,10 @@ const MovieDetails = ({ user, toggleLoginVisible }) => {
                   <span key={index} className='genre-item'>{genreName === 'Science Fiction' ? 'Sci-Fi' : genreName}</span>
                 ))}
               </div>
-              {video &&
+              {trailer &&
                 <button className='trailer-btn' onClick={handleWatch}>
                   <AiOutlinePlayCircle className='play-icon' />
-                  Trailer
+                  Watch
                 </button>
               }
             </div>
