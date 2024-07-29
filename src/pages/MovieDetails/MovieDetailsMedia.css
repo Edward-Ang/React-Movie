@@ -32,6 +32,11 @@
 
     .detail-container h1 {
         font-size: 20px;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 
     .movie-overview {
